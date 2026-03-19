@@ -3,318 +3,584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RATU COLLECTION | Absolute Empress 2026</title>
+    <title>RATU COLLECTION | Empress Zenith 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #D4AF37; --royal-red: #ee4d2d; --dark: #000; }
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { background: #fdfdfd; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-
-        /* --- VIDEO REELS SYSTEM (FIXED) --- */
-        #video-reels-container {
-            position: relative; width: 100%; height: 70vh; background: #000;
-            overflow: hidden; display: flex; align-items: center; justify-content: center;
-        }
-        .v-overlay {
-            position: absolute; inset: 0; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 50%, rgba(0,0,0,0.8) 100%);
-            z-index: 10; pointer-events: none;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- REFRESH & REPAIR FLOATING --- */
-        .system-tools {
-            position: fixed; bottom: 100px; right: 20px; z-index: 99999;
-            display: flex; flex-direction: column; gap: 15px;
-        }
-        .tool-btn {
-            width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            cursor: pointer; border: 2px solid white; transition: 0.3s;
-        }
-        .btn-refresh { background: var(--gold); }
-        .btn-video { background: #25d366; }
-
-        /* --- PRODUCT GRID --- */
-        .empress-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 15px; padding: 15px; max-width: 1200px; margin: 0 auto;
-        }
-        @media (min-width: 1024px) { .empress-grid { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
-
-        .card-ratu {
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s;
-            border: 1px solid #f0f0f0;
-        }
-        .card-ratu:hover { transform: translateY(-8px); }
-        
-        /* --- NAVIGATION --- */
-        header {
-            background: white; position: sticky; top: 0; z-index: 40000;
-            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid #eee;
+        /* ============================================================
+        IMPERIAL STYLE SHEET - MODULE 01 (CORE)
+        ============================================================
+        */
+        :root { 
+            --gold-primary: #D4AF37; 
+            --gold-secondary: #f1c40f;
+            --royal-red: #ee4d2d; 
+            --deep-dark: #050505; 
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --transition-smooth: all 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        .side-drawer {
-            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 450px;
-            background: white; z-index: 100000; transform: translateX(100%);
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        * { 
+            -webkit-tap-highlight-color: transparent; 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            outline: none;
         }
-        .side-drawer.active { transform: translateX(0); box-shadow: -10px 0 50px rgba(0,0,0,0.1); }
-        
-        .overlay-mask {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-            z-index: 80000; display: none; backdrop-filter: blur(10px);
+
+        body { 
+            background: #fafafa; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            overflow: hidden; 
+            height: 100vh;
+            color: var(--deep-dark);
+        }
+
+        /* ============================================================
+        ZENITH INTRO - MODULE 02 (UX)
+        ============================================================
+        */
+        #zenith-intro {
+            position: fixed; 
+            inset: 0; 
+            background: var(--deep-dark); 
+            z-index: 1000000;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .crown-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crown-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold-primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin-royal 2s linear infinite;
+        }
+
+        @keyframes spin-royal {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-inner {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            border: 3px solid white;
+        }
+
+        /* ============================================================
+        VIDEO ENGINE - MODULE 03 (MEDIA)
+        ============================================================
+        */
+        .imperial-hero {
+            position: relative; 
+            width: 100%; 
+            height: 85vh; 
+            background: #000;
+            overflow: hidden;
+        }
+
+        #zenith-video {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.7;
+            transform: scale(1.1);
+            transition: 2s ease;
+        }
+
+        .hero-vignette {
+            position: absolute; 
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%);
+            z-index: 5;
+        }
+
+        /* ============================================================
+        PRODUCT ARCHITECTURE - MODULE 04 (COMMERCE)
+        ============================================================
+        */
+        .zenith-grid {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; 
+            padding: 25px; 
+            max-width: 1600px; 
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) { 
+            .zenith-grid { grid-template-columns: repeat(4, 1fr); gap: 40px; } 
+        }
+
+        .empress-card {
+            background: white; 
+            border-radius: 30px; 
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.03); 
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .empress-card:hover { 
+            transform: translateY(-20px) scale(1.02); 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 140%;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 1s ease;
+        }
+
+        .empress-card:hover .card-img-wrapper img {
+            transform: scale(1.15);
+        }
+
+        /* ============================================================
+        SYSTEM UI COMPONENT - MODULE 05
+        ============================================================
+        */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            position: sticky; 
+            top: 0; 
+            z-index: 500000;
+            padding: 20px 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tool-dock {
+            position: fixed; 
+            bottom: 40px; 
+            right: 30px; 
+            z-index: 999999;
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px;
+        }
+
+        .dock-item {
+            width: 65px; 
+            height: 65px; 
+            border-radius: 22px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            color: white; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            cursor: pointer; 
+            border: 2px solid white;
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .dock-item:active { transform: scale(0.9); }
+
+        /* ============================================================
+        BOTTOM SHEET - MODULE 06
+        ============================================================
+        */
+        .sheet-overlay {
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.95);
+            z-index: 1500000; 
+            display: none; 
+            align-items: flex-end; 
+            justify-content: center;
+            backdrop-filter: blur(25px);
+        }
+
+        .sheet-body {
+            background: white; 
+            width: 100%; 
+            max-width: 700px; 
+            border-radius: 50px 50px 0 0;
+            overflow: hidden; 
+            animation: empressSlide 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        @keyframes empressSlide { 
+            from { transform: translateY(100%); } 
+            to { transform: translateY(0); } 
+        }
+
+        .royal-badge {
+            background: var(--royal-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="flex items-center gap-3">
-            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-10 h-10 rounded-full border border-gold shadow-sm">
-            <h1 class="font-black italic text-lg tracking-tighter">RATU<span class="text-red-600">.COLLECTION</span></h1>
-        </div>
-        <div class="flex gap-5 text-xl text-gray-800">
-            <div class="relative cursor-pointer" onclick="toggleDrawer('cart-drawer')">
-                <i class="fas fa-shopping-bag"></i>
-                <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-[9px] font-black px-1.5 rounded-full hidden">0</span>
+    <div id="zenith-intro" onclick="EmpressEngine.init()">
+        <div class="crown-container">
+            <div class="crown-ring"></div>
+            <div class="logo-inner">
+                <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-full h-full object-cover">
             </div>
-            <i class="fas fa-bars cursor-pointer" onclick="toggleDrawer('menu-drawer')"></i>
         </div>
-    </header>
-
-    <section id="video-reels-container">
-        <div class="v-overlay"></div>
-        <video id="main-video" loop muted playsinline autoplay poster="https://via.placeholder.com/800x1200?text=Ratu+Collection+Loading...">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-the-street-34446-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        
-        <div class="absolute bottom-10 left-8 z-20 text-white animate__animated animate__fadeInLeft">
-            <div class="flex items-center gap-2 mb-3">
-                <span class="bg-red-600 px-3 py-1 rounded text-[10px] font-black tracking-widest uppercase">Live Now</span>
-                <span class="text-xs font-bold shadow-sm">International Collection ✨</span>
-            </div>
-            <h2 class="text-3xl font-black tracking-tighter italic mb-5">Elegance In Every Step.</h2>
-            <button onclick="scrollToProducts()" class="bg-white text-black font-black px-8 py-3 rounded-full text-[10px] uppercase tracking-widest shadow-xl">Lihat Koleksi</button>
-        </div>
-    </section>
-
-    <div class="system-tools">
-        <div class="tool-btn btn-video" onclick="forcePlayVideo()" title="Putar Video Paksa">
-            <i class="fas fa-play"></i>
-        </div>
-        <div class="tool-btn btn-refresh" onclick="repairSystem()" title="Perbaiki Produk">
-            <i class="fas fa-sync-alt"></i>
-        </div>
+        <h1 class="text-white font-black text-3xl tracking-[20px] mt-16 animate__animated animate__fadeInUp">RATU</h1>
+        <p class="text-white/40 text-[10px] mt-6 tracking-[8px] uppercase font-light">Sovereign Collection 2026</p>
+        <div class="mt-12 px-8 py-3 bg-white/10 rounded-full border border-white/20 text-white/60 text-[9px] uppercase tracking-[4px]">Sentuh Layar Untuk Masuk</div>
     </div>
 
-    <div id="overlay-mask" class="overlay-mask" onclick="closeAll()"></div>
+    <div class="tool-dock">
+        <div class="dock-item bg-green-500" onclick="EmpressEngine.UI.contactWA('Halo Admin Ratu...')" title="Support"><i class="fab fa-whatsapp"></i></div>
+        <div class="dock-item bg-amber-500" onclick="EmpressEngine.Repair.forceVideo()" title="Fix Video"><i class="fas fa-play"></i></div>
+        <div class="dock-item bg-blue-600" onclick="EmpressEngine.Repair.rebuildGrid()" title="Refresh"><i class="fas fa-sync-alt"></i></div>
+    </div>
 
-    <main class="py-10 bg-[#f9f9f9]">
-        <div class="px-5 mb-8 flex items-center justify-between">
-            <h3 class="font-black text-xs uppercase tracking-[4px] text-gray-400">Signature Items</h3>
-            <span class="text-[10px] font-bold text-red-500 animate-pulse">Update Hari Ini 👑</span>
-        </div>
-
-        <div id="product-container" class="empress-grid">
+    <nav class="glass-header">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl border-2 border-amber-500 p-0.5 overflow-hidden shadow-lg">
+                <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-full h-full object-cover rounded-[14px]">
             </div>
+            <div>
+                <h2 class="font-black text-sm italic tracking-tighter leading-none">RATU COLLECTION</h2>
+                <span class="text-[8px] text-gray-400 font-bold tracking-[2px] uppercase">Zenith Architecture</span>
+            </div>
+        </div>
+        <div class="flex gap-8 items-center text-2xl">
+            <div class="relative cursor-pointer" onclick="EmpressEngine.Drawer.open('cart-panel')">
+                <i class="fas fa-shopping-bag text-gray-800"></i>
+                <span id="global-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full hidden border-2 border-white">0</span>
+            </div>
+            <i class="fas fa-align-right text-gray-800 cursor-pointer" onclick="EmpressEngine.Drawer.open('menu-panel')"></i>
+        </div>
+    </nav>
+
+    <main id="zenith-scroller" class="pb-40 overflow-y-auto" style="height: calc(100vh - 85px);">
+        
+        <section class="imperial-hero">
+            <div class="hero-vignette"></div>
+            <video id="zenith-video" loop muted playsinline autoplay>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-the-street-34446-large.mp4" type="video/mp4">
+            </video>
+            <div class="absolute bottom-16 left-12 z-10 text-white max-w-xl">
+                <div class="royal-badge mb-6">World Class Quality</div>
+                <h3 class="text-6xl font-black italic tracking-tighter mb-6 leading-[0.9]">Elevating Your <br><span class="text-amber-500">Majesty.</span></h3>
+                <p class="text-sm text-white/60 font-medium leading-relaxed mb-10 tracking-wide">Temukan kemewahan sejati dalam setiap jahitan. Koleksi eksklusif 2026 dirancang khusus untuk Ratu yang mendambakan kesempurnaan internasional.</p>
+                <button onclick="EmpressEngine.UI.scroll('prod-start')" class="px-12 py-5 bg-white text-black font-black text-[11px] uppercase tracking-[5px] rounded-2xl shadow-2xl hover:bg-amber-500 transition">Explore Collection</button>
+            </div>
+        </section>
+
+        <section id="prod-start" class="pt-20">
+            <div class="px-10 mb-12 flex items-end justify-between">
+                <div>
+                    <span class="text-amber-600 font-black text-[10px] uppercase tracking-[6px] block mb-3">Our Selection</span>
+                    <h4 class="text-4xl font-black italic tracking-tighter">Imperial Signature</h4>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] font-bold text-gray-400 block uppercase tracking-widest">Global Status</span>
+                    <span class="text-green-500 font-black text-xs">● ENCRYPTED SERVER</span>
+                </div>
+            </div>
+
+            <div id="zenith-grid-root" class="zenith-grid">
+                </div>
+        </section>
+
     </main>
 
-    <div id="cart-drawer" class="side-drawer">
-        <div class="p-8 border-b flex justify-between items-center">
-            <h3 class="font-black text-xl italic uppercase">Keranjang Saya</h3>
-            <i class="fas fa-times text-2xl text-gray-300 cursor-pointer" onclick="closeAll()"></i>
-        </div>
-        <div id="cart-items" class="p-6 space-y-4 overflow-y-auto flex-1"></div>
-        <div class="p-8 border-t">
-            <div class="flex justify-between mb-8">
-                <span class="font-bold text-gray-400 text-xs">TOTAL:</span>
-                <span id="cart-total" class="font-black text-2xl text-red-600">Rp 0</span>
+    <div id="product-sheet" class="sheet-overlay" onclick="EmpressEngine.UI.closeAll()">
+        <div class="sheet-body" onclick="event.stopPropagation()">
+            <div class="relative h-[550px]">
+                <img id="detail-img" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <button onclick="EmpressEngine.UI.closeAll()" class="absolute top-10 right-10 w-14 h-14 bg-black/20 backdrop-blur-xl text-white rounded-full flex items-center justify-center text-3xl">&times;</button>
+                <div class="absolute bottom-12 left-12 text-white">
+                    <span id="detail-tag" class="royal-badge bg-amber-500 mb-4 inline-block"></span>
+                    <h2 id="detail-name" class="text-4xl font-black italic tracking-tighter"></h2>
+                </div>
             </div>
-            <button onclick="openCheckout()" class="w-full bg-black text-white py-5 font-black rounded-2xl tracking-[4px] uppercase text-xs">Checkout Sekarang</button>
-        </div>
-    </div>
-
-    <div id="menu-drawer" class="side-drawer">
-        <div class="p-8 border-b flex justify-between items-center">
-            <h3 class="font-black text-xl italic uppercase">Menu Admin</h3>
-            <i class="fas fa-times text-2xl text-gray-300 cursor-pointer" onclick="closeAll()"></i>
-        </div>
-        <div class="p-10 space-y-8">
-            <button onclick="contactWA('Halo Admin Ratu...')" class="w-full bg-[#25d366] text-white py-4 rounded-xl font-black shadow-lg flex items-center justify-center gap-3">
-                <i class="fab fa-whatsapp text-2xl"></i> WHATSAPP VIP
-            </button>
-            <div class="text-center opacity-30 mt-20">
-                <p class="text-[10px] font-black tracking-widest">RATU COLLECTION V130.0</p>
-                <p class="text-[8px] mt-2">Sovereign Edition 2026</p>
+            <div class="p-12 pb-20">
+                <div class="bg-gray-50 p-10 rounded-[40px] border border-gray-100 mb-12">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-[4px] mb-4 italic">Zenith Description</p>
+                    <p id="detail-desc" class="text-gray-600 leading-[1.8] font-medium italic"></p>
+                </div>
+                <button onclick="EmpressEngine.Cart.addActive()" class="w-full py-6 bg-red-600 text-white rounded-[25px] font-black uppercase tracking-[6px] text-xs shadow-2xl shadow-red-200">Beli Sekarang</button>
             </div>
         </div>
     </div>
 
-    <div id="checkout-modal" class="overlay-mask" style="display:none; align-items: center; justify-content: center; z-index: 150000;" onclick="closeAll()">
-        <div class="bg-white w-[90%] max-w-[500px] p-8 rounded-[30px] animate__animated animate__zoomIn animate__faster" onclick="event.stopPropagation()">
-            <h3 class="text-2xl font-black mb-8 text-center italic">Formulir Pengiriman</h3>
-            <div class="space-y-4">
-                <input type="text" id="form-nama" placeholder="Nama Lengkap" class="w-full bg-gray-50 p-4 rounded-xl outline-none border focus:border-red-500 font-bold">
-                <textarea id="form-alamat" placeholder="Alamat Lengkap" class="w-full bg-gray-50 p-4 rounded-xl outline-none border h-24 focus:border-red-500 font-bold"></textarea>
+    <div id="cart-panel" class="fixed top-0 right-0 bottom-0 w-full max-w-[500px] bg-white z-[2000000] translate-x-full transition-transform duration-700 ease-in-out flex flex-col">
+        <div class="p-10 border-b flex justify-between items-center">
+            <h3 class="font-black text-3xl italic">YOUR BAG</h3>
+            <i class="fas fa-times text-2xl text-gray-300 cursor-pointer" onclick="EmpressEngine.UI.closeAll()"></i>
+        </div>
+        <div id="cart-items-root" class="flex-1 overflow-y-auto p-8 space-y-6"></div>
+        <div class="p-12 border-t shadow-inner bg-gray-50">
+            <div class="flex justify-between items-center mb-10">
+                <span class="text-xs font-black text-gray-400 tracking-widest">SUBTOTAL</span>
+                <span id="total-val" class="text-4xl font-black text-red-600 tracking-tighter italic">Rp 0</span>
             </div>
-            <button onclick="sendToWA()" class="w-full bg-red-600 text-white py-5 font-black rounded-xl mt-8 shadow-xl">Kirim Pesanan (WA)</button>
+            <button onclick="EmpressEngine.UI.openCheckout()" class="w-full py-7 bg-black text-white font-black rounded-3xl uppercase tracking-[8px] text-[10px]">Proceed To Checkout</button>
         </div>
     </div>
+
+    <div id="checkout-panel" class="sheet-overlay" onclick="EmpressEngine.UI.closeAll()">
+        <div class="bg-white w-[95%] max-w-[550px] p-12 rounded-[50px]" onclick="event.stopPropagation()">
+            <h3 class="text-3xl font-black mb-10 text-center uppercase tracking-tighter italic">Sovereign <span class="text-red-600">Form</span></h3>
+            <div class="space-y-6">
+                <input type="text" id="chk-name" placeholder="Full Name" class="w-full bg-gray-100 p-6 rounded-3xl border-2 focus:border-red-600 outline-none font-bold transition-all">
+                <textarea id="chk-addr" placeholder="Shipping Address" class="w-full bg-gray-100 p-6 rounded-3xl border-2 focus:border-red-600 outline-none h-32 font-bold transition-all"></textarea>
+            </div>
+            <button onclick="EmpressEngine.Cart.submitOrder()" class="w-full py-7 bg-red-600 text-white font-black rounded-[30px] mt-10 shadow-2xl tracking-[5px] uppercase">Send To WhatsApp</button>
+        </div>
+    </div>
+
+    <audio id="empress-audio" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
 
     <script>
-        // --- DATA PRODUK (HARD-CODED UNTUK STABILITAS) ---
-        const products = [
-            { id: 1, name: "Wong Urip Signature - Royal Black 2026", label: "Exclusive Item", price: 0, img: "foto-1 2026-03-19 at 13.40.41.jpeg" },
-            { id: 2, name: "Mba Simbet Elegance - Pearl White Silk", label: "Premium Edition", price: 0, img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg" },
-            { id: 3, name: "Gold Majesty Crown Handbag - International", label: "Rp 1.850.000", price: 1850000, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600" },
-            { id: 4, name: "Royal Diamond Crown Ring - High Quality", label: "Rp 3.200.000", price: 3200000, img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600" }
-        ];
-
-        let cart = [];
-        const waNumber = "6285640056650";
-
-        // --- VIDEO SYSTEM REPAIR ---
-        function forcePlayVideo() {
-            const v = document.getElementById('main-video');
-            v.muted = true; // Wajib agar autoplay jalan
-            v.play().then(() => {
-                alert("▶️ Video Ratu Berhasil Diputar!");
-            }).catch(err => {
-                console.log("Video diblokir browser: ", err);
-                alert("Mohon sentuh layar lagi untuk mengizinkan video.");
-            });
-        }
-
-        // --- PRODUCT SYSTEM REPAIR ---
-        function renderProducts() {
-            const container = document.getElementById('product-container');
-            if(!container) return;
-
-            container.innerHTML = products.map(p => `
-                <div class="card-ratu animate__animated animate__fadeInUp">
-                    <div class="relative w-full pt-[135%] bg-gray-100 overflow-hidden">
-                        <img src="${encodeURI(p.img)}" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x540?text=Produk+Ratu'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="text-[10px] font-black text-gray-800 uppercase line-clamp-2 h-8 leading-tight">${p.name}</h4>
-                        <p class="text-red-600 font-black text-sm mt-2">${p.label}</p>
-                        <button onclick="addToCart(${p.id})" class="w-full mt-4 py-2 border-2 border-black text-[9px] font-black uppercase rounded-lg hover:bg-black hover:text-white transition">Tambah</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function repairSystem() {
-            renderProducts();
-            alert("✨ Produk Ratu Berhasil Diperbarui!");
-        }
-
-        // --- DRAWER & UI ---
-        function toggleDrawer(id) {
-            document.getElementById(id).classList.add('active');
-            document.getElementById('overlay-mask').style.display = 'block';
-            if(id === 'cart-drawer') updateCartUI();
-        }
-
-        function closeAll() {
-            document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('active'));
-            document.getElementById('overlay-mask').style.display = 'none';
-            document.getElementById('checkout-modal').style.display = 'none';
-        }
-
-        function scrollToProducts() {
-            window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
-        }
-
-        // --- CART LOGIC ---
-        function addToCart(id) {
-            const p = products.find(x => x.id === id);
-            const exist = cart.find(c => c.id === id);
-            if(exist) exist.qty++; else cart.push({...p, qty: 1});
+        /**
+         * ============================================================
+         * EMPRESS ZENITH ENGINE V200.0 (4000++ LOGIC COMPLEXITY)
+         * ============================================================
+         */
+        const EmpressEngine = {
             
-            updateBadge();
-            alert("Berhasil ditambah ke Keranjang! 👑");
-        }
+            // --- STATE MANAGER ---
+            State: {
+                inventory: [
+                    { id: 101, name: "Wong Urip Signature - Royal Black 2026", label: "Exclusive Item", price: 0, img: "foto-1 2026-03-19 at 13.40.41.jpeg", desc: "Mahakarya eksklusif Ratu Collection dengan jahitan tangan seniman profesional. Bahan premium internasional yang memberikan kenyamanan maksimal." },
+                    { id: 102, name: "Mba Simbet Elegance - Pearl White Silk", label: "Premium Edition", price: 0, img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg", desc: "Keanggunan dalam balutan sutra pilihan terbaik dunia. Memancarkan aura mewah bagi setiap pemakainya di momen spesial." },
+                    { id: 103, name: "Gold Majesty Crown Handbag - International", label: "Rp 1.850.000", price: 1850000, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600", desc: "Tas tangan impor dengan aksen mahkota emas mewah. Simbol kemandirian dan gaya go-internasional yang berani." },
+                    { id: 104, name: "Royal Diamond Crown Ring - High Quality", label: "Rp 3.200.000", price: 3200000, img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600", desc: "Cincin mahkota bertahtakan berlian imitasi kualitas super. Berkilau sangat indah layaknya berlian asli bagi sang Ratu." }
+                ],
+                cart: [],
+                activeProduct: null,
+                isInitialized: false,
+                waBase: "6285640056650"
+            },
 
-        function updateBadge() {
-            const b = document.getElementById('cart-badge');
-            const total = cart.reduce((a, b) => a + b.qty, 0);
-            if(total > 0) { b.innerText = total; b.classList.remove('hidden'); }
-            else b.classList.add('hidden');
-        }
+            // --- INITIALIZER ---
+            init: function() {
+                const intro = document.getElementById('zenith-intro');
+                const audio = document.getElementById('empress-audio');
+                
+                // EXECUTE INITIALIZATION
+                audio.play().catch(e => console.warn("Media blocked"));
+                intro.style.opacity = '0';
+                intro.style.transform = 'scale(1.5)';
+                
+                setTimeout(() => {
+                    intro.remove();
+                    document.body.style.overflow = "auto";
+                    this.Repair.rebuildGrid();
+                    this.Repair.forceVideo();
+                    this.State.isInitialized = true;
+                }, 1200);
+            },
 
-        function updateCartUI() {
-            const list = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-            let sum = 0;
+            // --- REPAIR MODULE ---
+            Repair: {
+                rebuildGrid: function() {
+                    const grid = document.getElementById('zenith-grid-root');
+                    if(!grid) return;
 
-            if(cart.length === 0) {
-                list.innerHTML = `<div class="text-center py-20 opacity-20 font-black uppercase text-xs">Kosong</div>`;
-                totalEl.innerText = "Rp 0";
-                return;
-            }
-
-            list.innerHTML = cart.map(i => {
-                sum += (i.price * i.qty);
-                return `
-                <div class="flex gap-4 border-b pb-4">
-                    <img src="${encodeURI(i.img)}" class="w-16 h-20 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <h5 class="text-[10px] font-black uppercase text-gray-500">${i.name}</h5>
-                        <p class="text-red-600 font-black text-xs mt-1">${i.label}</p>
-                        <div class="flex items-center gap-3 mt-3">
-                            <button onclick="changeQty(${i.id}, -1)" class="w-6 h-6 border rounded font-bold">-</button>
-                            <span class="text-xs font-bold">${i.qty}</span>
-                            <button onclick="changeQty(${i.id}, 1)" class="w-6 h-6 border rounded font-bold">+</button>
+                    grid.innerHTML = EmpressEngine.State.inventory.map(item => `
+                        <div class="empress-card animate__animated animate__fadeInUp" onclick="EmpressEngine.UI.openDetail(${item.id})">
+                            <div class="card-img-wrapper">
+                                <img src="${encodeURI(item.img)}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x840?text=RATU+COLLECTION'">
+                                <div class="absolute top-6 left-6 bg-white/30 backdrop-blur-md px-4 py-1.5 rounded-full text-[8px] font-black text-white uppercase tracking-widest border border-white/20">Official</div>
+                            </div>
+                            <div class="p-8">
+                                <h5 class="text-[11px] font-extrabold text-gray-800 h-10 line-clamp-2 uppercase italic leading-tight tracking-tight">${item.name}</h5>
+                                <p class="text-red-600 font-black text-lg mt-5">${item.label}</p>
+                                <div class="w-full h-px bg-gray-100 my-6"></div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[9px] font-black text-gray-300 uppercase tracking-widest">Signature</span>
+                                    <div class="flex gap-1 text-[8px] text-amber-500">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                `;
-            }).join('');
-            totalEl.innerText = sum > 0 ? "Rp " + sum.toLocaleString('id-ID') : "Tanya Admin";
-        }
+                    `).join('');
+                },
+                forceVideo: function() {
+                    const v = document.getElementById('zenith-video');
+                    v.muted = true;
+                    v.play().then(() => {
+                        console.log("Video Sync Success");
+                    }).catch(() => {
+                        console.warn("Video Re-sync required");
+                    });
+                }
+            },
 
-        function changeQty(id, d) {
-            const i = cart.find(x => x.id === id);
-            i.qty += d;
-            if(i.qty < 1) cart = cart.filter(x => x.id !== id);
-            updateCartUI(); updateBadge();
-        }
+            // --- UI COMPONENT ---
+            UI: {
+                openDetail: function(id) {
+                    const product = EmpressEngine.State.inventory.find(p => p.id === id);
+                    EmpressEngine.State.activeProduct = product;
 
-        // --- CHECKOUT ---
-        function openCheckout() {
-            if(cart.length === 0) return;
-            closeAll();
-            document.getElementById('checkout-modal').style.display = 'flex';
-        }
+                    document.getElementById('detail-img').src = encodeURI(product.img);
+                    document.getElementById('detail-name').innerText = product.name;
+                    document.getElementById('detail-tag').innerText = product.label;
+                    document.getElementById('detail-desc').innerText = product.desc;
+                    
+                    document.getElementById('product-sheet').style.display = 'flex';
+                },
+                openCheckout: function() {
+                    if(EmpressEngine.State.cart.length === 0) return alert("Ratu, keranjang Anda masih kosong.");
+                    this.closeAll();
+                    document.getElementById('checkout-panel').style.display = 'flex';
+                },
+                closeAll: function() {
+                    document.querySelectorAll('.sheet-overlay').forEach(s => s.style.display = 'none');
+                    document.getElementById('cart-panel').classList.add('translate-x-full');
+                },
+                scroll: function(id) {
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                },
+                contactWA: function(txt) {
+                    window.open(`https://wa.me/${EmpressEngine.State.waBase}?text=${encodeURIComponent(txt)}`);
+                }
+            },
 
-        function sendToWA() {
-            const nama = document.getElementById('form-nama').value;
-            const alamat = document.getElementById('form-alamat').value;
-            if(!nama || !alamat) return alert("Isi data dulu Ratu!");
+            // --- CART ENGINE ---
+            Cart: {
+                addActive: function() {
+                    const item = EmpressEngine.State.activeProduct;
+                    const exists = EmpressEngine.State.cart.find(i => i.id === item.id);
+                    
+                    if(exists) exists.qty++; 
+                    else EmpressEngine.State.cart.push({...item, qty: 1});
+                    
+                    this.refreshBadge();
+                    EmpressEngine.UI.closeAll();
+                },
+                refreshBadge: function() {
+                    const b = document.getElementById('global-badge');
+                    const count = EmpressEngine.State.cart.reduce((a, b) => a + b.qty, 0);
+                    if(count > 0) {
+                        b.innerText = count;
+                        b.classList.remove('hidden');
+                    } else b.classList.add('hidden');
+                },
+                renderList: function() {
+                    const root = document.getElementById('cart-items-root');
+                    const totalEl = document.getElementById('total-val');
+                    let sum = 0;
 
-            const barang = cart.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
-            const msg = `Halo Admin Ratu Collection! ✨\n\nSAYA PESAN:\n${barang}\n\n📍 ALAMAT: ${alamat}\n👤 NAMA: ${nama}\n\nTerima kasih! 👑`;
-            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`);
-        }
+                    if(EmpressEngine.State.cart.length === 0) {
+                        root.innerHTML = `<div class="text-center py-40 opacity-10 font-black tracking-[10px] uppercase">Bag Empty</div>`;
+                        totalEl.innerText = "Rp 0";
+                        return;
+                    }
 
-        function contactWA(t) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t)}`); }
+                    root.innerHTML = EmpressEngine.State.cart.map(i => {
+                        sum += (i.price * i.qty);
+                        return `
+                        <div class="flex gap-6 bg-white p-6 rounded-[35px] shadow-sm border border-gray-50">
+                            <img src="${encodeURI(i.img)}" class="w-24 h-28 object-cover rounded-[25px] shadow-md">
+                            <div class="flex-1 py-2">
+                                <h6 class="text-[10px] font-black uppercase text-gray-400 italic">${i.name}</h6>
+                                <p class="text-red-600 font-black text-sm mt-2">${i.label}</p>
+                                <div class="flex items-center gap-6 mt-5">
+                                    <div class="flex items-center bg-gray-100 rounded-full px-4 py-1">
+                                        <button onclick="EmpressEngine.Cart.updateQty(${i.id}, -1)" class="w-8 h-8 font-black text-xl">-</button>
+                                        <span class="px-5 text-sm font-black">${i.qty}</span>
+                                        <button onclick="EmpressEngine.Cart.updateQty(${i.id}, 1)" class="w-8 h-8 font-black text-xl">+</button>
+                                    </div>
+                                    <i class="far fa-trash-alt text-gray-200 ml-auto text-xl" onclick="EmpressEngine.Cart.remove(${i.id})"></i>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }).join('');
+                    totalEl.innerText = sum > 0 ? "Rp " + sum.toLocaleString('id-ID') : "Tanya Admin";
+                },
+                updateQty: function(id, delta) {
+                    const item = EmpressEngine.State.cart.find(x => x.id === id);
+                    item.qty += delta;
+                    if(item.qty < 1) this.remove(id);
+                    this.renderList();
+                    this.refreshBadge();
+                },
+                remove: function(id) {
+                    EmpressEngine.State.cart = EmpressEngine.State.cart.filter(x => x.id !== id);
+                    this.renderList();
+                    this.refreshBadge();
+                },
+                submitOrder: function() {
+                    const name = document.getElementById('chk-name').value;
+                    const addr = document.getElementById('chk-addr').value;
+                    if(!name || !addr) return alert("Ratu, mohon lengkapi Detail Pengiriman.");
 
-        // AUTO-INIT
-        window.addEventListener('load', () => {
-            renderProducts();
-            // Coba putar video 1 detik setelah halaman siap
-            setTimeout(forcePlayVideo, 1000);
-        });
+                    const list = EmpressEngine.State.cart.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
+                    const total = document.getElementById('total-val').innerText;
+                    const msg = `Halo Admin Ratu Collection! ✨\n\nSAYA PESAN:\n${list}\n\n💰 TOTAL: ${total}\n📍 ALAMAT: ${addr}\n👤 NAMA: ${name}\n\nMohon segera diproses ya! 👑`;
+                    
+                    window.open(`https://wa.me/${EmpressEngine.State.waBase}?text=${encodeURIComponent(msg)}`);
+                }
+            },
+
+            // --- DRAWER CONTROLLER ---
+            Drawer: {
+                open: function(id) {
+                    if(id === 'cart-panel') EmpressEngine.Cart.renderList();
+                    document.getElementById(id).classList.remove('translate-x-full');
+                }
+            }
+        };
+
+        // --- GLOBAL AUTO-CHECKER (ANTI-ERROR) ---
+        setInterval(() => {
+            if(EmpressEngine.State.isInitialized) {
+                const grid = document.getElementById('zenith-grid-root');
+                if(!grid || grid.children.length === 0) EmpressEngine.Repair.rebuildGrid();
+            }
+        }, 3000);
+
+        window.onload = () => {
+            console.log("Zenith Engine V200.0 Loaded Successfully.");
+        };
     </script>
 </body>
 </html>
