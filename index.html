@@ -3,400 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RATU COLLECTION | Quantum Sovereign Store 2026</title>
+    <title>RATU COLLECTION | Absolute Empress 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        :root { 
-            --royal-red: #ee4d2d; 
-            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #f1c40f 100%);
-            --dark-royal: #0a0a0a;
-        }
-
-        /* --- QUANTUM RESET --- */
+        :root { --gold: #D4AF37; --royal-red: #ee4d2d; --dark: #000; }
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background-color: #f4f4f4; 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden; height: 100vh;
-        }
-
-        /* --- IMPERIAL INTRO (SHIELD MODE) --- */
-        #quantum-shield {
-            position: fixed; inset: 0; background: var(--dark-royal); z-index: 999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s;
-        }
-        .royal-loader {
-            width: 100px; height: 100px; border-radius: 50%;
-            border: 3px solid transparent; border-top-color: #D4AF37;
-            animation: spin 1s linear infinite; position: absolute;
-        }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* --- SYSTEM REFRESH BUTTON (CANGGIH) --- */
-        #emergency-refresh {
-            position: fixed; bottom: 100px; left: 20px; z-index: 9999;
-            background: var(--gold-gradient); color: black;
-            width: 50px; height: 50px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
-            cursor: pointer; animation: pulse-gold 2s infinite;
-        }
-
-        /* --- GRID ARCHITECTURE --- */
-        .royal-grid-container {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 12px; padding: 15px; max-width: 1400px; margin: 0 auto;
-        }
-        @media (min-width: 1024px) { .royal-grid-container { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
-
-        .product-item {
-            background: white; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: 0.4s ease;
-            position: relative; border: 1px solid rgba(0,0,0,0.05);
-        }
-        .product-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
-        .image-box { position: relative; width: 100%; padding-top: 135%; background: #f9f9f9; }
-        .image-box img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        body { background: #fdfdfd; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* --- NAVIGATION LUXURY --- */
-        .nav-top {
-            background: linear-gradient(90deg, #f53d2d, #ff6633);
-            position: sticky; top: 0; z-index: 10000; padding: 15px 20px;
-            display: flex; align-items: center; justify-content: space-between;
+        /* --- VIDEO REELS SYSTEM (FIXED) --- */
+        #video-reels-container {
+            position: relative; width: 100%; height: 70vh; background: #000;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .v-overlay {
+            position: absolute; inset: 0; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 10; pointer-events: none;
+        }
+        video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- REFRESH & REPAIR FLOATING --- */
+        .system-tools {
+            position: fixed; bottom: 100px; right: 20px; z-index: 99999;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .tool-btn {
+            width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            cursor: pointer; border: 2px solid white; transition: 0.3s;
+        }
+        .btn-refresh { background: var(--gold); }
+        .btn-video { background: #25d366; }
+
+        /* --- PRODUCT GRID --- */
+        .empress-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 15px; padding: 15px; max-width: 1200px; margin: 0 auto;
+        }
+        @media (min-width: 1024px) { .empress-grid { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
+
+        .card-ratu {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s;
+            border: 1px solid #f0f0f0;
+        }
+        .card-ratu:hover { transform: translateY(-8px); }
+        
+        /* --- NAVIGATION --- */
+        header {
+            background: white; position: sticky; top: 0; z-index: 40000;
+            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #eee;
         }
 
-        /* --- DRAWER SYSTEM --- */
-        .drawer-side {
+        .side-drawer {
             position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 450px;
-            background: white; z-index: 50000; transform: translateX(100%);
-            transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            background: white; z-index: 100000; transform: translateX(100%);
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .drawer-side.open { transform: translateX(0); }
-        .master-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-            z-index: 45000; display: none; backdrop-filter: blur(10px);
-        }
-
-        /* --- KEY ANIMATIONS --- */
-        @keyframes pulse-gold {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        .side-drawer.active { transform: translateX(0); box-shadow: -10px 0 50px rgba(0,0,0,0.1); }
+        
+        .overlay-mask {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 80000; display: none; backdrop-filter: blur(10px);
         }
     </style>
 </head>
-<body id="imperial-app">
+<body>
 
-    <div id="quantum-shield" onclick="igniteEngine()">
-        <div class="relative flex items-center justify-center">
-            <div class="royal-loader"></div>
-            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-20 h-20 rounded-full border-2 border-white shadow-2xl z-10">
-        </div>
-        <h1 class="text-white font-black text-2xl tracking-[12px] mt-10 animate__animated animate__pulse animate__infinite">RATU COLLECTION</h1>
-        <p class="text-white/30 text-[9px] mt-5 tracking-[5px] uppercase">Klik Untuk Inisialisasi Sistem</p>
-    </div>
-
-    <div id="emergency-refresh" onclick="forceSystemReboot()" title="Reboot System">
-        <i class="fas fa-sync-alt fa-spin"></i>
-    </div>
-
-    <div id="master-overlay" class="master-overlay" onclick="closeAll()"></div>
-
-    <header class="nav-top shadow-xl">
+    <header>
         <div class="flex items-center gap-3">
-            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-10 h-10 rounded-full border-2 border-white">
-            <span class="text-white font-black text-xs tracking-tighter uppercase">Ratu Collection</span>
+            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-10 h-10 rounded-full border border-gold shadow-sm">
+            <h1 class="font-black italic text-lg tracking-tighter">RATU<span class="text-red-600">.COLLECTION</span></h1>
         </div>
-        <div class="flex gap-5 text-white text-xl">
-            <div class="relative" onclick="openDrawer('cart-drawer')">
+        <div class="flex gap-5 text-xl text-gray-800">
+            <div class="relative cursor-pointer" onclick="toggleDrawer('cart-drawer')">
                 <i class="fas fa-shopping-bag"></i>
-                <span id="badge-count" class="absolute -top-2 -right-2 bg-white text-red-600 text-[9px] font-black px-1.5 rounded-full hidden border border-red-600">0</span>
+                <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-[9px] font-black px-1.5 rounded-full hidden">0</span>
             </div>
-            <i class="fas fa-bars" onclick="openDrawer('chat-drawer')"></i>
+            <i class="fas fa-bars cursor-pointer" onclick="toggleDrawer('menu-drawer')"></i>
         </div>
     </header>
 
-    <main class="min-h-screen pb-32">
-        <div class="bg-white p-5 border-b flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-1 h-5 bg-red-600"></div>
-                <h2 class="font-black text-xs uppercase tracking-widest text-gray-800 italic">Koleksi Royal 2026</h2>
+    <section id="video-reels-container">
+        <div class="v-overlay"></div>
+        <video id="main-video" loop muted playsinline autoplay poster="https://via.placeholder.com/800x1200?text=Ratu+Collection+Loading...">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-the-street-34446-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="absolute bottom-10 left-8 z-20 text-white animate__animated animate__fadeInLeft">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="bg-red-600 px-3 py-1 rounded text-[10px] font-black tracking-widest uppercase">Live Now</span>
+                <span class="text-xs font-bold shadow-sm">International Collection ✨</span>
             </div>
-            <div class="flex gap-2">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
-                <span class="text-[9px] font-bold text-gray-400">SERVER ACTIVE</span>
-            </div>
+            <h2 class="text-3xl font-black tracking-tighter italic mb-5">Elegance In Every Step.</h2>
+            <button onclick="scrollToProducts()" class="bg-white text-black font-black px-8 py-3 rounded-full text-[10px] uppercase tracking-widest shadow-xl">Lihat Koleksi</button>
+        </div>
+    </section>
+
+    <div class="system-tools">
+        <div class="tool-btn btn-video" onclick="forcePlayVideo()" title="Putar Video Paksa">
+            <i class="fas fa-play"></i>
+        </div>
+        <div class="tool-btn btn-refresh" onclick="repairSystem()" title="Perbaiki Produk">
+            <i class="fas fa-sync-alt"></i>
+        </div>
+    </div>
+
+    <div id="overlay-mask" class="overlay-mask" onclick="closeAll()"></div>
+
+    <main class="py-10 bg-[#f9f9f9]">
+        <div class="px-5 mb-8 flex items-center justify-between">
+            <h3 class="font-black text-xs uppercase tracking-[4px] text-gray-400">Signature Items</h3>
+            <span class="text-[10px] font-bold text-red-500 animate-pulse">Update Hari Ini 👑</span>
         </div>
 
-        <div id="grid-engine" class="royal-grid-container">
+        <div id="product-container" class="empress-grid">
             </div>
     </main>
 
-    <div id="cart-drawer" class="drawer-side">
-        <div class="p-6 border-b flex justify-between items-center bg-white sticky top-0 z-10">
-            <h3 class="font-black text-xl italic uppercase">Checkout Ratu</h3>
-            <i class="fas fa-times text-2xl text-gray-200" onclick="closeAll()"></i>
+    <div id="cart-drawer" class="side-drawer">
+        <div class="p-8 border-b flex justify-between items-center">
+            <h3 class="font-black text-xl italic uppercase">Keranjang Saya</h3>
+            <i class="fas fa-times text-2xl text-gray-300 cursor-pointer" onclick="closeAll()"></i>
         </div>
-        <div id="cart-list-render" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
-        <div class="p-8 border-t bg-white">
-            <div class="flex justify-between mb-6">
-                <span class="font-bold text-gray-400 text-xs">TOTAL TAGIHAN:</span>
-                <span id="total-price-text" class="font-black text-2xl text-red-600">Rp 0</span>
+        <div id="cart-items" class="p-6 space-y-4 overflow-y-auto flex-1"></div>
+        <div class="p-8 border-t">
+            <div class="flex justify-between mb-8">
+                <span class="font-bold text-gray-400 text-xs">TOTAL:</span>
+                <span id="cart-total" class="font-black text-2xl text-red-600">Rp 0</span>
             </div>
-            <button onclick="openFinalCheckout()" class="w-full py-5 bg-black text-white font-black rounded-2xl tracking-[4px] uppercase text-xs shadow-2xl">Beli Sekarang</button>
+            <button onclick="openCheckout()" class="w-full bg-black text-white py-5 font-black rounded-2xl tracking-[4px] uppercase text-xs">Checkout Sekarang</button>
         </div>
     </div>
 
-    <div id="chat-drawer" class="drawer-side">
-        <div class="p-6 border-b flex justify-between items-center bg-white">
-            <h3 class="font-black text-xl italic uppercase">Admin Support</h3>
-            <i class="fas fa-times text-2xl text-gray-200" onclick="closeAll()"></i>
+    <div id="menu-drawer" class="side-drawer">
+        <div class="p-8 border-b flex justify-between items-center">
+            <h3 class="font-black text-xl italic uppercase">Menu Admin</h3>
+            <i class="fas fa-times text-2xl text-gray-300 cursor-pointer" onclick="closeAll()"></i>
         </div>
-        <div class="p-10 flex flex-col items-center text-center">
-            <div class="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-4xl mb-5 shadow-inner"><i class="fab fa-whatsapp"></i></div>
-            <h4 class="font-black text-lg mb-2">Layanan VIP Ratu</h4>
-            <p class="text-xs text-gray-400 leading-relaxed mb-8">Butuh bantuan mengenai ukuran atau pengiriman? Admin kami siap melayani Anda 24/7.</p>
-            <button onclick="contactWA('Halo Admin, saya Ratu...')" class="w-full py-4 bg-[#25d366] text-white font-black rounded-full shadow-lg">HUBUNGI WHATSAPP</button>
-        </div>
-    </div>
-
-    <div id="detail-sheet" class="master-overlay" style="display:none; align-items: flex-end; justify-content: center; z-index: 60000;" onclick="closeAll()">
-        <div class="bg-white w-full max-w-[600px] rounded-t-[40px] overflow-hidden animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
-            <div class="relative h-[450px]">
-                <img id="view-img" src="" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                <button onclick="closeAll()" class="absolute top-6 right-6 bg-white/20 backdrop-blur-md text-white w-12 h-12 rounded-full flex items-center justify-center text-2xl">&times;</button>
-                <div class="absolute bottom-8 left-8 text-white">
-                    <h2 id="view-name" class="font-black text-2xl mb-2 italic"></h2>
-                    <p id="view-price" class="text-red-500 font-black text-3xl"></p>
-                </div>
-            </div>
-            <div class="p-8 pb-12">
-                <div class="bg-gray-50 p-6 rounded-3xl border border-gray-100 mb-8">
-                    <span class="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-2 block">Spesifikasi Royal</span>
-                    <p id="view-desc" class="text-xs text-gray-600 leading-relaxed"></p>
-                </div>
-                <button onclick="execAddToCart()" class="w-full py-5 bg-[#ee4d2d] text-white font-black rounded-2xl uppercase tracking-[3px] text-xs shadow-xl">Masukkan Keranjang Ratu</button>
+        <div class="p-10 space-y-8">
+            <button onclick="contactWA('Halo Admin Ratu...')" class="w-full bg-[#25d366] text-white py-4 rounded-xl font-black shadow-lg flex items-center justify-center gap-3">
+                <i class="fab fa-whatsapp text-2xl"></i> WHATSAPP VIP
+            </button>
+            <div class="text-center opacity-30 mt-20">
+                <p class="text-[10px] font-black tracking-widest">RATU COLLECTION V130.0</p>
+                <p class="text-[8px] mt-2">Sovereign Edition 2026</p>
             </div>
         </div>
     </div>
 
-    <div id="checkout-sheet" class="master-overlay" style="display:none; align-items: flex-end; justify-content: center; z-index: 70000;" onclick="closeAll()">
-        <div class="bg-white w-full max-w-[600px] p-10 rounded-t-[40px] animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
-            <h3 class="text-2xl font-black mb-10 text-center uppercase tracking-tighter italic">Formulir Pesanan <span class="text-red-600">Ratu</span></h3>
+    <div id="checkout-modal" class="overlay-mask" style="display:none; align-items: center; justify-content: center; z-index: 150000;" onclick="closeAll()">
+        <div class="bg-white w-[90%] max-w-[500px] p-8 rounded-[30px] animate__animated animate__zoomIn animate__faster" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-black mb-8 text-center italic">Formulir Pengiriman</h3>
             <div class="space-y-4">
-                <input type="text" id="cust-name" placeholder="Nama Lengkap Ratu" class="w-full bg-gray-50 border-2 p-5 rounded-2xl outline-none focus:border-red-500 font-bold transition">
-                <textarea id="cust-address" placeholder="Alamat Pengiriman Lengkap" class="w-full bg-gray-50 border-2 p-5 rounded-2xl outline-none h-28 focus:border-red-500 font-bold transition"></textarea>
-                <select id="cust-pay" class="w-full bg-gray-50 border-2 p-5 rounded-2xl font-black">
-                    <option>BCA Transfer</option>
-                    <option>DANA / ShopeePay</option>
-                    <option>COD (Bayar Ditempat)</option>
-                </select>
+                <input type="text" id="form-nama" placeholder="Nama Lengkap" class="w-full bg-gray-50 p-4 rounded-xl outline-none border focus:border-red-500 font-bold">
+                <textarea id="form-alamat" placeholder="Alamat Lengkap" class="w-full bg-gray-50 p-4 rounded-xl outline-none border h-24 focus:border-red-500 font-bold"></textarea>
             </div>
-            <button onclick="submitToWA()" class="w-full py-6 bg-black text-white font-black rounded-3xl uppercase mt-10 tracking-[5px] text-[10px] shadow-2xl">Konfirmasi Pesanan</button>
+            <button onclick="sendToWA()" class="w-full bg-red-600 text-white py-5 font-black rounded-xl mt-8 shadow-xl">Kirim Pesanan (WA)</button>
         </div>
     </div>
-
-    <audio id="audio-bgm" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
 
     <script>
-        // --- MASTER SYSTEM DATA ---
-        let waNumber = "6285640056650";
-        let cartItems = [];
-        let activeProduct = null;
-
+        // --- DATA PRODUK (HARD-CODED UNTUK STABILITAS) ---
         const products = [
-            { id: 1, name: "Wong Urip Signature - Royal Black 2026", price: 0, tag: "Exclusive", img: "foto-1 2026-03-19 at 13.40.41.jpeg", desc: "Produk mahakarya eksklusif Ratu Collection dengan jahitan tangan seniman profesional. Bahan premium internasional." },
-            { id: 2, name: "Mba Simbet Elegance - Pearl White Silk", price: 0, tag: "Premium Edition", img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg", desc: "Sutra pilihan dengan kilau mutiara alami. Memancarkan aura keanggunan sejati untuk acara spesial Ratu." },
-            { id: 3, name: "Gold Majesty Crown Handbag - International", price: 1850000, tag: "Rp 1.850.000", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600", desc: "Tas tangan mewah dengan aksen mahkota emas. Simbol kemewahan go-internasional." },
-            { id: 4, name: "Royal Diamond Crown Ring - High Quality", price: 3200000, tag: "Rp 3.200.000", img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600", desc: "Cincin mahkota berlian imitasi kualitas terbaik. Bersinar indah di jemari Ratu." }
+            { id: 1, name: "Wong Urip Signature - Royal Black 2026", label: "Exclusive Item", price: 0, img: "foto-1 2026-03-19 at 13.40.41.jpeg" },
+            { id: 2, name: "Mba Simbet Elegance - Pearl White Silk", label: "Premium Edition", price: 0, img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg" },
+            { id: 3, name: "Gold Majesty Crown Handbag - International", label: "Rp 1.850.000", price: 1850000, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600" },
+            { id: 4, name: "Royal Diamond Crown Ring - High Quality", label: "Rp 3.200.000", price: 3200000, img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600" }
         ];
 
-        // --- QUANTUM REBOOT ENGINE (Saran Ratu) ---
-        function forceSystemReboot() {
-            console.log("Rebooting Imperial Engine...");
-            const grid = document.getElementById('grid-engine');
-            
-            // 1. Tampilkan Efek Loading
-            grid.innerHTML = `
-                <div class="col-span-2 py-20 text-center animate__animated animate__fadeIn">
-                    <i class="fas fa-sync-alt fa-spin text-4xl text-gold-dark mb-4"></i>
-                    <p class="text-[10px] font-black uppercase tracking-[4px]">Revalidating Quantum Path...</p>
-                </div>
-            `;
+        let cart = [];
+        const waNumber = "6285640056650";
 
-            // 2. Jalankan Perbaikan Link & Render Ulang
-            setTimeout(() => {
-                rebuildProductGrid();
-                alert("✨ Sistem Ratu Collection Berhasil Di-Refresh!");
-            }, 800);
+        // --- VIDEO SYSTEM REPAIR ---
+        function forcePlayVideo() {
+            const v = document.getElementById('main-video');
+            v.muted = true; // Wajib agar autoplay jalan
+            v.play().then(() => {
+                alert("▶️ Video Ratu Berhasil Diputar!");
+            }).catch(err => {
+                console.log("Video diblokir browser: ", err);
+                alert("Mohon sentuh layar lagi untuk mengizinkan video.");
+            });
         }
 
-        // --- SISTEM INISIALISASI ---
-        function igniteEngine() {
-            const intro = document.getElementById('quantum-shield');
-            const bgm = document.getElementById('audio-bgm');
-            
-            // Putar Musik
-            bgm.play().catch(e => console.log("Audio Play Blocked"));
+        // --- PRODUCT SYSTEM REPAIR ---
+        function renderProducts() {
+            const container = document.getElementById('product-container');
+            if(!container) return;
 
-            // Hapus Shield
-            intro.style.transform = "translateY(-100%)";
-            setTimeout(() => {
-                intro.remove();
-                document.body.style.height = "auto";
-                document.body.style.overflow = "auto";
-                rebuildProductGrid(); // Panggil Render
-            }, 800);
-        }
-
-        // --- RENDER ENGINE (PERBAIKAN ERROR PRODUK TIDAK MUNCUL) ---
-        function rebuildProductGrid() {
-            const grid = document.getElementById('grid-engine');
-            if(!grid) return;
-
-            grid.innerHTML = products.map(p => {
-                // Perbaikan Path Gambar (Spasi ke URL Safe)
-                const safeImg = encodeURI(p.img);
-                
-                return `
-                <div class="product-item animate__animated animate__fadeInUp" onclick="viewDetail(${p.id})">
-                    <div class="image-box">
-                        <img src="${safeImg}" onerror="this.src='https://via.placeholder.com/400x533?text=Ratu+Collection'">
-                        <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[7px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Official</div>
+            container.innerHTML = products.map(p => `
+                <div class="card-ratu animate__animated animate__fadeInUp">
+                    <div class="relative w-full pt-[135%] bg-gray-100 overflow-hidden">
+                        <img src="${encodeURI(p.img)}" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x540?text=Produk+Ratu'">
                     </div>
                     <div class="p-4">
-                        <h3 class="text-[10px] font-black text-gray-800 line-clamp-2 h-8 uppercase italic tracking-tighter">${p.name}</h3>
-                        <p class="text-red-600 font-black text-sm mt-3">${p.tag}</p>
-                        <div class="flex items-center gap-1 mt-2 opacity-30">
-                            <i class="fas fa-star text-yellow-400 text-[8px]"></i>
-                            <span class="text-[8px] font-bold">5.0 | High Quality</span>
-                        </div>
+                        <h4 class="text-[10px] font-black text-gray-800 uppercase line-clamp-2 h-8 leading-tight">${p.name}</h4>
+                        <p class="text-red-600 font-black text-sm mt-2">${p.label}</p>
+                        <button onclick="addToCart(${p.id})" class="w-full mt-4 py-2 border-2 border-black text-[9px] font-black uppercase rounded-lg hover:bg-black hover:text-white transition">Tambah</button>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `).join('');
         }
 
-        // --- UI LOGIC ---
-        function viewDetail(id) {
-            activeProduct = products.find(x => x.id === id);
-            document.getElementById('view-img').src = encodeURI(activeProduct.img);
-            document.getElementById('view-name').innerText = activeProduct.name;
-            document.getElementById('view-price').innerText = activeProduct.tag;
-            document.getElementById('view-desc').innerText = activeProduct.desc;
-            
-            document.getElementById('detail-sheet').style.display = 'flex';
-            document.getElementById('master-overlay').style.display = 'block';
+        function repairSystem() {
+            renderProducts();
+            alert("✨ Produk Ratu Berhasil Diperbarui!");
         }
 
-        function openDrawer(id) {
-            document.getElementById(id).classList.add('open');
-            document.getElementById('master-overlay').style.display = 'block';
-            if(id === 'cart-drawer') renderCart();
+        // --- DRAWER & UI ---
+        function toggleDrawer(id) {
+            document.getElementById(id).classList.add('active');
+            document.getElementById('overlay-mask').style.display = 'block';
+            if(id === 'cart-drawer') updateCartUI();
         }
 
         function closeAll() {
-            document.querySelectorAll('.drawer-side').forEach(d => d.classList.remove('open'));
-            document.getElementById('master-overlay').style.display = 'none';
-            document.getElementById('detail-sheet').style.display = 'none';
-            document.getElementById('checkout-sheet').style.display = 'none';
+            document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('active'));
+            document.getElementById('overlay-mask').style.display = 'none';
+            document.getElementById('checkout-modal').style.display = 'none';
         }
 
-        // --- CART SYSTEM ---
-        function execAddToCart() {
-            const exists = cartItems.find(i => i.id === activeProduct.id);
-            if(exists) exists.qty++; else cartItems.push({...activeProduct, qty: 1});
+        function scrollToProducts() {
+            window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            const exist = cart.find(c => c.id === id);
+            if(exist) exist.qty++; else cart.push({...p, qty: 1});
             
             updateBadge();
-            closeAll();
-            alert("Berhasil ditambahkan ke Keranjang! ✨");
+            alert("Berhasil ditambah ke Keranjang! 👑");
         }
 
         function updateBadge() {
-            const b = document.getElementById('badge-count');
-            const total = cartItems.reduce((a, b) => a + b.qty, 0);
+            const b = document.getElementById('cart-badge');
+            const total = cart.reduce((a, b) => a + b.qty, 0);
             if(total > 0) { b.innerText = total; b.classList.remove('hidden'); }
             else b.classList.add('hidden');
         }
 
-        function renderCart() {
-            const list = document.getElementById('cart-list-render');
-            const totalText = document.getElementById('total-price-text');
+        function updateCartUI() {
+            const list = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
             let sum = 0;
 
-            if(cartItems.length === 0) {
-                list.innerHTML = `<div class="text-center mt-20 opacity-20"><i class="fas fa-shopping-bag text-7xl mb-4"></i><p class="text-[10px] font-black">KERANJANG KOSONG</p></div>`;
-                totalText.innerText = "Rp 0";
+            if(cart.length === 0) {
+                list.innerHTML = `<div class="text-center py-20 opacity-20 font-black uppercase text-xs">Kosong</div>`;
+                totalEl.innerText = "Rp 0";
                 return;
             }
 
-            list.innerHTML = cartItems.map(i => {
+            list.innerHTML = cart.map(i => {
                 sum += (i.price * i.qty);
                 return `
-                <div class="bg-white p-4 rounded-3xl border border-gray-100 flex gap-4 shadow-sm">
-                    <img src="${encodeURI(i.img)}" class="w-16 h-20 object-cover rounded-2xl shadow-md">
+                <div class="flex gap-4 border-b pb-4">
+                    <img src="${encodeURI(i.img)}" class="w-16 h-20 object-cover rounded-lg">
                     <div class="flex-1">
-                        <h4 class="text-[9px] font-black uppercase text-gray-400 tracking-tighter">${i.name}</h4>
-                        <p class="text-red-600 font-black text-xs mt-1">${i.tag}</p>
-                        <div class="flex items-center gap-4 mt-3">
-                            <div class="flex items-center bg-gray-50 rounded-full px-2 border">
-                                <button onclick="changeQty(${i.id}, -1)" class="w-8 h-8 font-bold">-</button>
-                                <span class="px-3 text-xs font-bold">${i.qty}</span>
-                                <button onclick="changeQty(${i.id}, 1)" class="w-8 h-8 font-bold">+</button>
-                            </div>
-                            <i class="far fa-trash-alt text-gray-200 ml-auto" onclick="delItem(${i.id})"></i>
+                        <h5 class="text-[10px] font-black uppercase text-gray-500">${i.name}</h5>
+                        <p class="text-red-600 font-black text-xs mt-1">${i.label}</p>
+                        <div class="flex items-center gap-3 mt-3">
+                            <button onclick="changeQty(${i.id}, -1)" class="w-6 h-6 border rounded font-bold">-</button>
+                            <span class="text-xs font-bold">${i.qty}</span>
+                            <button onclick="changeQty(${i.id}, 1)" class="w-6 h-6 border rounded font-bold">+</button>
                         </div>
                     </div>
                 </div>
                 `;
             }).join('');
-            totalText.innerText = sum > 0 ? "Rp " + sum.toLocaleString('id-ID') : "Tanya Admin";
+            totalEl.innerText = sum > 0 ? "Rp " + sum.toLocaleString('id-ID') : "Tanya Admin";
         }
 
         function changeQty(id, d) {
-            const i = cartItems.find(x => x.id === id); i.qty += d;
-            if(i.qty < 1) delItem(id);
-            renderCart(); updateBadge();
+            const i = cart.find(x => x.id === id);
+            i.qty += d;
+            if(i.qty < 1) cart = cart.filter(x => x.id !== id);
+            updateCartUI(); updateBadge();
         }
 
-        function delItem(id) {
-            cartItems = cartItems.filter(x => x.id !== id);
-            renderCart(); updateBadge();
-        }
-
-        // --- CHECKOUT LOGIC ---
-        function openFinalCheckout() {
-            if(cartItems.length === 0) return;
+        // --- CHECKOUT ---
+        function openCheckout() {
+            if(cart.length === 0) return;
             closeAll();
-            document.getElementById('checkout-sheet').style.display = 'flex';
-            document.getElementById('master-overlay').style.display = 'block';
+            document.getElementById('checkout-modal').style.display = 'flex';
         }
 
-        function submitToWA() {
-            const n = document.getElementById('cust-name').value;
-            const a = document.getElementById('cust-address').value;
-            const p = document.getElementById('cust-pay').value;
+        function sendToWA() {
+            const nama = document.getElementById('form-nama').value;
+            const alamat = document.getElementById('form-alamat').value;
+            if(!nama || !alamat) return alert("Isi data dulu Ratu!");
 
-            if(!n || !a) return alert("Ratu, mohon isi Nama dan Alamat!");
-
-            const barang = cartItems.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
-            const total = document.getElementById('total-price-text').innerText;
-            const pesan = `Halo Admin Ratu Collection! ✨\n\nSAYA PESAN:\n${barang}\n\n💰 TOTAL: ${total}\n📍 ALAMAT: ${a}\n💳 BAYAR: ${p}\n👤 NAMA: ${n}\n\nTerima kasih Admin! 👑`;
-            
-            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`);
+            const barang = cart.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
+            const msg = `Halo Admin Ratu Collection! ✨\n\nSAYA PESAN:\n${barang}\n\n📍 ALAMAT: ${alamat}\n👤 NAMA: ${nama}\n\nTerima kasih! 👑`;
+            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`);
         }
 
-        function contactWA(txt) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(txt)}`); }
+        function contactWA(t) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t)}`); }
 
-        // --- AUTO START ---
-        window.addEventListener('load', rebuildProductGrid);
+        // AUTO-INIT
+        window.addEventListener('load', () => {
+            renderProducts();
+            // Coba putar video 1 detik setelah halaman siap
+            setTimeout(forcePlayVideo, 1000);
+        });
     </script>
 </body>
 </html>
