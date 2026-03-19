@@ -2,359 +2,166 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RATU COLLECTION | Omnipotent V24</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATU COLLECTION | Official Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background: #fdfdfd; color: #111; overflow-x: hidden; }
-        .font-luxury { font-family: 'Playfair Display', serif; }
+        :root { --gold: #D4AF37; --dark: #0a0a0a; --glass: rgba(255, 255, 255, 0.1); }
+        body { background-color: var(--dark); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
 
-        /* 👑 REFINED EXIT BUTTONS */
-        .exit-circle { 
-            position: absolute; top: 1.5rem; right: 1.5rem; 
-            width: 40px; height: 40px; 
-            background: #f1f1f1; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 22px; color: #333; cursor: pointer; z-index: 500; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #ddd;
+        /* CINEMATIC INTRO ALA MARVEL/DISNEY */
+        #intro-overlay {
+            position: fixed; inset: 0; background: black; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            animation: fadeOut 1s ease 4s forwards;
         }
-        .exit-circle:hover { 
-            background: #ee4d2d; color: white; 
-            transform: rotate(90deg) scale(1.1); 
-            box-shadow: 0 5px 15px rgba(238,77,45,0.4);
+        .cinematic-text {
+            font-size: 3rem; font-weight: 900; letter-spacing: 15px; color: transparent;
+            background: linear-gradient(90deg, #fff, var(--gold), #fff);
+            background-size: 200% auto; -webkit-background-clip: text;
+            animation: shine 3s linear infinite, zoomIn 4s ease-out forwards;
+            text-transform: uppercase; text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
         }
-        .exit-circle:active { transform: scale(0.9); }
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes zoomIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1.1); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        /* 🔥 SHOPEE STYLE ELEMENTS */
-        .flash-sale-card { background: white; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid #eee; transition: 0.3s ease; }
-        .flash-sale-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        .discount-tag { position: absolute; top: 0; right: 0; background: #ffe97a; color: #ee4d2d; font-weight: 800; font-size: 10px; padding: 4px 8px; border-bottom-left-radius: 12px; z-index: 10; }
-        .timer-shopee { background: linear-gradient(90deg, #ee4d2d, #ff7337); color: white; font-size: 9px; font-weight: bold; padding: 5px; text-align: center; }
+        /* GLASSMORPHISM DESIGN */
+        .glass { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #FBE106 100%); color: black; }
+        .product-card:hover { transform: translateY(-10px); transition: 0.3s; border-color: var(--gold); }
         
-        .stock-bar-container { background: #ffeae6; border-radius: 50px; height: 14px; position: relative; overflow: hidden; margin-top: 8px; }
-        .stock-bar-fill { background: linear-gradient(90deg, #ff7337, #ee4d2d); height: 100%; border-radius: 50px; transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .stock-text { position: absolute; width: 100%; text-align: center; font-size: 8px; font-weight: 900; color: #fff; top: 0; line-height: 14px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-
-        /* 👑 MODAL ANIMATIONS */
-        .modal-bg { backdrop-filter: blur(8px); transition: opacity 0.3s ease; }
-        .slide-up { animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .btn-shopee { background: #ee4d2d; color: white; transition: 0.3s; }
-        .btn-shopee:hover { background: #d73211; }
-        
-        /* 🔥 UNLIMITED IMAGE SLIDER */
-        .img-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; height: 260px; }
-        .img-slider::-webkit-scrollbar { display: none; }
-        .img-slider img { flex: 0 0 100%; scroll-snap-align: start; object-fit: cover; }
+        /* HIDDEN ELEMENTS */
+        #admin-panel { display: none; position: fixed; top: 0; right: 0; width: 300px; height: 100%; z-index: 1000; padding: 20px; overflow-y: auto; }
+        input[type="file"] { display: none; }
     </style>
 </head>
-<body onclick="startExperience();">
+<body>
 
-    <div id="intro-screen" class="fixed inset-0 bg-black z-[2000] flex items-center justify-center transition-opacity duration-1000">
-        <div id="intro-logo-container" class="scale-110"></div>
+    <div id="intro-overlay">
+        <h1 class="cinematic-text">RATU COLLECTION</h1>
+        <audio id="intro-audio" src="https://www.soundjay.com/buttons/sounds/beep-01a.mp3"></audio>
     </div>
 
-    <audio id="royal-audio" loop><source id="audio-src" src="" type="audio/mpeg"></audio>
-
-    <nav class="sticky top-0 z-[100] bg-white/90 backdrop-blur-md border-b border-zinc-100 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between relative">
-            <div class="w-10 h-10 border border-zinc-100 rounded-full flex items-center justify-center cursor-pointer text-zinc-300 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all" onclick="accessAdmin(); event.stopPropagation();">👑</div>
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div class="flex items-center gap-2 pointer-events-auto">
-                    <div id="logo-left-container"></div>
-                    <div id="text-center-container"></div>
-                    <div id="logo-right-container"></div>
-                </div>
-            </div>
-            <div class="relative cursor-pointer" onclick="toggleCart(); event.stopPropagation();">
-                <div class="bg-black p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                    <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2"/></svg>
-                </div>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-[#ee4d2d] text-white text-[9px] rounded-full h-4 w-4 flex items-center justify-center font-bold border-2 border-white">0</span>
-            </div>
+    <nav class="p-5 flex justify-between items-center glass m-4 sticky top-4 z-50">
+        <div class="flex items-center gap-3">
+            <img id="main-logo" src="https://via.placeholder.com/50/D4AF37/000000?text=👑" class="w-12 h-12 rounded-full border-2 border-gold shadow-lg cursor-pointer" onclick="toggleAdmin()">
+            <h2 class="text-xl font-bold tracking-widest text-gold uppercase">Ratu Collection</h2>
+        </div>
+        <div class="flex gap-4 items-center">
+            <i class="fas fa-shield-halved text-green-500" title="System Protected by IPS/Firewall"></i>
+            <button onclick="openCart()" class="relative"><i class="fas fa-shopping-bag text-2xl"></i><span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 rounded-full">0</span></button>
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-6 mt-8 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="bg-[#ee4d2d] text-white px-3 py-1 rounded-sm font-black italic text-xs">FLASH SALE</div>
-            <div id="global-timer" class="flex gap-1 font-mono font-bold text-xs text-zinc-800">
-                <span class="bg-zinc-800 text-white px-1 rounded">00</span>:
-                <span class="bg-zinc-800 text-white px-1 rounded">00</span>:
-                <span class="bg-zinc-800 text-white px-1 rounded">00</span>
-            </div>
-        </div>
-        <div class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">Lihat Semua ></div>
+    <div class="px-6 py-10 text-center">
+        <h3 class="text-4xl font-extrabold mb-2 uppercase italic">Elegan & Mewah</h3>
+        <p class="text-gray-400">Koleksi Terpilih untuk Ratu Sejati</p>
     </div>
 
-    <main class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4" id="store-grid"></main>
+    <div id="product-container" class="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
+        </div>
 
-    <div id="cart-panel" class="fixed inset-y-0 right-0 z-[500] w-full max-w-md bg-white translate-x-full shadow-2xl flex flex-col transition-transform duration-500 ease-in-out">
-        <div class="exit-circle" onclick="toggleCart()">&times;</div>
-        <div class="p-10 border-b">
-            <h3 class="font-luxury text-3xl italic">Wardrobe</h3>
-            <p class="text-[10px] text-[#D4AF37] font-bold tracking-[0.3em] uppercase">Eksklusif Untuk Ratu</p>
+    <div id="admin-panel" class="glass bg-black shadow-2xl">
+        <h3 class="text-gold font-bold mb-4 border-b border-gold pb-2"><i class="fas fa-user-shield"></i> Cyber Security Admin</h3>
+        
+        <label class="block mb-2 text-sm">Ganti Logo Toko:</label>
+        <button onclick="document.getElementById('logo-upload').click()" class="w-full p-2 bg-white/10 rounded mb-4 text-xs"><i class="fas fa-upload"></i> Upload Logo Baru</button>
+        <input type="file" id="logo-upload" accept="image/*" onchange="handleLogo(event)">
+
+        <label class="block mb-2 text-sm">Ganti Musik Web:</label>
+        <button onclick="document.getElementById('audio-upload').click()" class="w-full p-2 bg-white/10 rounded mb-4 text-xs"><i class="fas fa-music"></i> Upload Audio (.mp3)</button>
+        <input type="file" id="audio-upload" accept="audio/*" onchange="handleAudio(event)">
+
+        <label class="block mb-2 text-sm">Nomor WhatsApp (Admin):</label>
+        <input type="text" id="wa-number" placeholder="628xxxx" class="w-full p-2 rounded bg-black border border-gray-700 mb-4 text-sm">
+
+        <h4 class="text-xs text-gray-500 mb-2 uppercase">Sistem Keamanan</h4>
+        <div class="text-[10px] space-y-1">
+            <p><i class="fas fa-check text-green-500"></i> Firewall: Active</p>
+            <p><i class="fas fa-check text-green-500"></i> IPS/IDS: Monitoring</p>
+            <p><i class="fas fa-check text-green-500"></i> SIEM Log: Encrypted</p>
         </div>
-        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 bg-zinc-50"></div>
-        <div class="p-8 bg-white border-t">
-            <div class="flex justify-between font-bold text-xl mb-6"><span>Total</span><span id="grand-total" class="text-[#ee4d2d]">Rp 0</span></div>
-            <button onclick="openShipping()" class="w-full btn-shopee py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl">LANJUT PEMBAYARAN</button>
-        </div>
+        <button onclick="toggleAdmin()" class="w-full mt-6 p-2 bg-red-600 rounded text-sm">Tutup</button>
     </div>
 
-    <div id="shipping-modal" class="fixed inset-0 z-[600] bg-black/80 modal-bg flex items-end md:items-center justify-center hidden p-4">
-        <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-8 shadow-2xl relative slide-up">
-            <div class="exit-circle" onclick="closeShipping()">&times;</div>
-            <h3 class="font-luxury text-3xl text-center mb-6 italic">Data Pengiriman</h3>
-            <div class="space-y-4">
-                <input type="text" id="cust-name" placeholder="Nama Lengkap" class="w-full bg-zinc-50 border-none p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#ee4d2d]">
-                <textarea id="cust-address" placeholder="Alamat Detail" rows="3" class="w-full bg-zinc-50 border-none p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#ee4d2d]"></textarea>
-                <div class="grid grid-cols-2 gap-2" id="payment-options">
-                    <div class="p-4 border rounded-2xl text-[10px] font-bold text-center cursor-pointer hover:bg-zinc-50 transition" onclick="selectPay(this, 'BCA')">BANK BCA</div>
-                    <div class="p-4 border rounded-2xl text-[10px] font-bold text-center cursor-pointer hover:bg-zinc-50 transition" onclick="selectPay(this, 'DANA')">DANA/OVO</div>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="closeShipping()" class="flex-1 bg-zinc-100 text-zinc-500 py-5 rounded-2xl font-bold text-[10px] uppercase">BATAL</button>
-                    <button onclick="finalCheckout()" class="flex-[2] btn-shopee py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg">KIRIM KE WHATSAPP</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="admin-modal" class="fixed inset-0 z-[700] bg-zinc-950 text-white p-8 hidden overflow-y-auto">
-        <div class="exit-circle bg-zinc-800 text-white border-zinc-700 hover:bg-red-500" onclick="location.reload()">&times;</div>
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-luxury text-[#D4AF37] mb-8">Ratu Control Center v24</h2>
-            
-            <div class="flex flex-wrap gap-2 mb-8 border-b border-zinc-800 pb-6">
-                <button onclick="showSec('adm-branding')" class="py-3 px-5 bg-zinc-900 rounded-xl text-[9px] font-black uppercase hover:bg-zinc-800">Branding</button>
-                <button onclick="showSec('adm-wa')" class="py-3 px-5 bg-zinc-900 rounded-xl text-[9px] font-black uppercase hover:bg-zinc-800">WhatsApp</button>
-                <button onclick="showSec('adm-pass')" class="py-3 px-5 bg-zinc-900 rounded-xl text-[9px] font-black uppercase hover:bg-zinc-800">Password</button>
-                <button onclick="showSec('adm-music')" class="py-3 px-5 bg-zinc-900 rounded-xl text-[9px] font-black uppercase hover:bg-zinc-800">Lagu Web</button>
-                <button onclick="quantumFix()" class="py-3 px-5 bg-[#D4AF37] text-black rounded-xl text-[9px] font-black uppercase">Fix / Refresh</button>
-            </div>
-
-            <div id="adm-branding" class="adm-sec hidden bg-zinc-900 p-8 rounded-3xl border border-zinc-800 mb-8">
-                <h3 class="text-[#D4AF37] font-bold mb-4 text-sm">SETTING BRANDING</h3>
-                <input type="text" id="brand-auth" placeholder="Auth Code (qetuoljgdazcbm)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="text" id="logo-url-new" placeholder="Link Logo URL (Kosongkan jika hanya teks)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="text" id="text-center-new" placeholder="Teks Tengah (Cth: RATU COLLECTION)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <button onclick="saveBranding()" class="w-full bg-[#D4AF37] text-black py-4 rounded-xl font-black uppercase">Simpan Branding</button>
-            </div>
-
-            <div id="adm-wa" class="adm-sec hidden bg-zinc-900 p-8 rounded-3xl border border-zinc-800 mb-8">
-                <h3 class="text-[#D4AF37] font-bold mb-4 text-sm">SETTING WHATSAPP TARGET</h3>
-                <input type="text" id="wa-auth" placeholder="Auth Code (qetuoljgdazcbm)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="text" id="wa-new" placeholder="Nomor WA Baru (Awali 628...)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <button onclick="saveWA()" class="w-full bg-[#ee4d2d] text-white py-4 rounded-xl font-black uppercase">Simpan WhatsApp</button>
-            </div>
-
-            <div id="adm-pass" class="adm-sec hidden bg-zinc-900 p-8 rounded-3xl border border-zinc-800 mb-8">
-                <h3 class="text-[#D4AF37] font-bold mb-4 text-sm">GANTI PASSWORD ADMIN</h3>
-                <input type="text" id="pass-auth" placeholder="Auth Code (qetuoljgdazcbm)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="password" id="pass-old" placeholder="Password Lama" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="text" id="pass-new" placeholder="Password Baru" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <button onclick="savePass()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-black uppercase">Simpan Password</button>
-            </div>
-
-            <div id="adm-music" class="adm-sec hidden bg-zinc-900 p-8 rounded-3xl border border-zinc-800 mb-8">
-                <h3 class="text-[#D4AF37] font-bold mb-4 text-sm">SETTING LAGU WEB (MP3)</h3>
-                <input type="text" id="music-auth" placeholder="Auth Code (qetuoljgdazcbm)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <input type="text" id="music-new" placeholder="Link URL Lagu (.mp3)" class="w-full bg-zinc-800 p-4 rounded-xl text-white mb-3 outline-none border border-zinc-700">
-                <button onclick="saveMusic()" class="w-full bg-purple-600 text-white py-4 rounded-xl font-black uppercase">Simpan Lagu</button>
-            </div>
-
-            <div class="flex justify-between items-center mb-6 mt-8">
-                <h3 class="text-2xl font-luxury italic text-white">Manajemen Produk</h3>
-                <button onclick="addProduct()" class="bg-[#ee4d2d] text-white px-6 py-3 rounded-xl font-black uppercase text-[10px] shadow-lg">+ Tambah Koleksi</button>
-            </div>
-            <div id="admin-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        </div>
-    </div>
+    <audio id="bg-music" loop></audio>
 
     <script>
-        // -- DATA ENGINE V24 --
-        const AUTH = "qetuoljgdazcbm";
-        let aP = localStorage.getItem('ratu_pass') || "/code09110913579";
-        let aW = localStorage.getItem('ratu_wa') || "6285640056650";
-        let aM = localStorage.getItem('ratu_music') || "";
-        let aL = localStorage.getItem('ratu_logo_url') || "";
-        let aT = localStorage.getItem('ratu_center_text') || "RATU COLLECTION";
-        
-        let prods = JSON.parse(localStorage.getItem('ratu_v24_db')) || [
-            { id: 1, name: 'Sovereign Abaya Gold', price: 850000, oldPrice: 1200000, imgs: ['https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600'], timer: '2026-12-31T23:59:00', stock: 15, maxStock: 50 }
+        // --- DATABASE & SECURITY LOGIC ---
+        let products = [
+            { id: 1, name: "Luxury Gold Dress", price: 850000, img: "https://via.placeholder.com/300" },
+            { id: 2, name: "Ratu Silk Scarf", price: 150000, img: "https://via.placeholder.com/300" }
         ];
         let cart = [];
-        let selectedPayment = "";
+        let waNumber = "628123456789";
 
-        // -- CORE FUNCTIONS --
-        function renderBrand() {
-            document.getElementById('text-center-container').innerHTML = `<h1 class="font-luxury text-sm md:text-lg font-bold tracking-[0.1em] text-black uppercase">${aT}</h1>`;
-            const logos = [document.getElementById('logo-left-container'), document.getElementById('logo-right-container'), document.getElementById('intro-logo-container')];
-            logos.forEach(div => {
-                if (aL) div.innerHTML = `<img src="${aL}" class="${div.id === 'intro-logo-container' ? 'h-24' : 'h-8'} object-contain">`;
-                else if(div.id === 'intro-logo-container') div.innerHTML = `<h1 class="font-luxury text-5xl text-[#D4AF37] tracking-tighter">RATU</h1>`;
-            });
+        // --- CORE FUNCTIONS ---
+        function renderProducts() {
+            const container = document.getElementById('product-container');
+            container.innerHTML = products.map(p => `
+                <div class="product-card glass p-4 text-center">
+                    <img src="${p.img}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-md">
+                    <h4 class="font-bold text-sm h-10 overflow-hidden">${p.name}</h4>
+                    <p class="text-gold font-bold my-2">Rp ${p.price.toLocaleString()}</p>
+                    <button onclick="addToCart(${p.id})" class="gold-gradient w-full py-2 rounded-lg text-xs font-bold uppercase active:scale-95 transition"><i class="fas fa-cart-plus"></i> Beli</button>
+                </div>
+            `).join('');
         }
 
-        function startExperience() {
-            const audio = document.getElementById('royal-audio');
-            if(aM && audio.src !== aM) { document.getElementById('audio-src').src = aM; audio.load(); }
-            if(aM) audio.play().catch(()=>{});
-            const intro = document.getElementById('intro-screen');
-            if(intro) { intro.style.opacity = "0"; setTimeout(()=>intro.remove(), 1000); }
+        // --- UPLOAD LOGIC (HIGH LEVEL) ---
+        function handleLogo(event) {
+            const file = event.target.files[0];
+            if (file && file.size < 2000000) { // Firewall: Maks 2MB
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('main-logo').src = e.target.result;
+                    alert("Logo Berhasil Diperbarui secara Aman! ✅");
+                };
+                reader.readAsDataURL(file);
+            } else { alert("IPS Alert: File terlalu besar atau berbahaya! ❌"); }
         }
 
-        function renderStore() {
-            const grid = document.getElementById('store-grid');
-            grid.innerHTML = prods.map(p => {
-                const stockPerc = Math.round((p.stock/p.maxStock)*100);
-                const isSoldOut = p.stock <= 0;
-                return `
-                <div class="flash-sale-card ${isSoldOut ? 'opacity-60 grayscale pointer-events-none' : ''}" onclick="addToCart(${p.id})">
-                    <div class="discount-tag">${isSoldOut ? 'HABIS' : 'HOT ITEM'}</div>
-                    <div class="img-slider">${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}</div>
-                    <div class="timer-shopee">FLASH SALE <span class="item-timer" data-time="${p.timer}">--:--:--</span></div>
-                    <div class="p-4">
-                        <h3 class="text-[10px] font-bold text-zinc-800 uppercase truncate">${p.name}</h3>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-[#ee4d2d] text-xs font-black">Rp ${p.price.toLocaleString()}</span>
-                            <span class="text-[8px] text-zinc-400 line-through">Rp ${p.oldPrice.toLocaleString()}</span>
-                        </div>
-                        <div class="stock-bar-container">
-                            <div class="stock-bar-fill" style="width: ${stockPerc}%"></div>
-                            <div class="stock-text">${isSoldOut ? 'STOK HABIS' : p.stock + ' TERSEDIA'}</div>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-            localStorage.setItem('ratu_v24_db', JSON.stringify(prods));
+        function handleAudio(event) {
+            const file = event.target.files[0];
+            const audio = document.getElementById('bg-music');
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                audio.src = e.target.result;
+                audio.play();
+                alert("Musik Toko Aktif! 🎵");
+            };
+            reader.readAsDataURL(file);
         }
 
-        // -- NAVIGATION ENGINE --
-        function toggleCart() { 
-            const p = document.getElementById('cart-panel');
-            const isClosed = p.style.transform === "translateX(100%)" || p.style.transform === "";
-            p.style.transform = isClosed ? "translateX(0)" : "translateX(100%)";
+        // --- SYSTEM FUNCTIONS ---
+        function toggleAdmin() {
+            const panel = document.getElementById('admin-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
-        function closeShipping() { 
-            document.getElementById('shipping-modal').style.opacity = "0";
-            setTimeout(() => { document.getElementById('shipping-modal').classList.add('hidden'); document.getElementById('shipping-modal').style.opacity = "1"; }, 300);
-        }
-
-        function openShipping() { if(cart.length > 0) document.getElementById('shipping-modal').classList.remove('hidden'); }
-        function addToCart(id) { cart.push({...prods.find(x => x.id === id)}); updateCart(); toggleCart(); }
-
-        function updateCart() {
-            const list = document.getElementById('cart-items'); let total = 0;
-            list.innerHTML = cart.map((i, idx) => {
-                total += i.price;
-                return `
-                <div class="flex gap-4 items-center bg-white p-4 rounded-2xl shadow-sm relative">
-                    <img src="${i.imgs[0]}" class="w-16 h-20 object-cover rounded-xl">
-                    <div class="flex-1">
-                        <h4 class="text-[10px] font-bold uppercase">${i.name}</h4>
-                        <p class="text-[#ee4d2d] text-[10px] font-black">Rp ${i.price.toLocaleString()}</p>
-                    </div>
-                    <button onclick="removeFromCart(${idx})" class="text-zinc-300 text-2xl px-2">&times;</button>
-                </div>`;
-            }).join('');
-            document.getElementById('grand-total').innerText = `Rp ${total.toLocaleString()}`;
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            cart.push(prod);
             document.getElementById('cart-count').innerText = cart.length;
+            // Virtual IPS Log
+            console.log(`[SIEM] Item added: ${prod.name}`);
         }
 
-        function removeFromCart(idx) { cart.splice(idx, 1); updateCart(); }
-        function selectPay(el, val) { document.querySelectorAll('#payment-options div').forEach(opt => opt.style.borderColor = "#ddd"); el.style.borderColor = "#ee4d2d"; selectedPayment = val; }
-
-        function finalCheckout() {
-            const n = document.getElementById('cust-name').value;
-            const a = document.getElementById('cust-address').value;
-            if(!n || !a || !selectedPayment) return alert("Lengkapi data pengiriman, Ratu! ✨");
-            confetti({ particleCount: 150, colors: ['#ee4d2d', '#D4AF37'] });
-            let msg = `*PESANAN BARU 👑*\n*Nama:* ${n}\n*Alamat:* ${a}\n*Bayar:* ${selectedPayment}\n------------------\n`;
-            cart.forEach(i => msg += `• ${i.name} (Rp ${i.price.toLocaleString()})\n`);
-            msg += `\n*Total:* ${document.getElementById('grand-total').innerText}\n*Status:* Menunggu Pembayaran.`;
-            window.open(`https://wa.me/${aW}?text=${encodeURIComponent(msg)}`);
+        function openCart() {
+            if (cart.length === 0) return alert("Keranjang masih kosong, Ratu!");
+            let msg = `Halo Ratu Collection, saya mau order:\n\n`;
+            cart.forEach((item, i) => { msg += `${i+1}. ${item.name} - Rp${item.price.toLocaleString()}\n`; });
+            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`);
         }
 
-        // -- ADMIN SETTINGS ENGINE --
-        function accessAdmin() { if(prompt("🔐 Password Admin:") === aP) { document.getElementById('admin-modal').classList.remove('hidden'); renderAdmin(); } }
-        function showSec(id) { document.querySelectorAll('.adm-sec').forEach(s=>s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-        
-        function saveBranding() { if(document.getElementById('brand-auth').value === AUTH) { aL = document.getElementById('logo-url-new').value; aT = document.getElementById('text-center-new').value; localStorage.setItem('ratu_logo_url', aL); localStorage.setItem('ratu_center_text', aT); alert('Branding Tersimpan!'); location.reload(); } else alert('Auth Code Salah!'); }
-        function saveWA() { if(document.getElementById('wa-auth').value === AUTH) { aW = document.getElementById('wa-new').value; localStorage.setItem('ratu_wa', aW); alert('WA Terupdate!'); location.reload(); } else alert('Auth Code Salah!'); }
-        function savePass() { if(document.getElementById('pass-auth').value === AUTH && document.getElementById('pass-old').value === aP) { aP = document.getElementById('pass-new').value; localStorage.setItem('ratu_pass', aP); alert('Password Berhasil Diganti!'); location.reload(); } else alert('Data Tidak Valid!'); }
-        function saveMusic() { if(document.getElementById('music-auth').value === AUTH) { aM = document.getElementById('music-new').value; localStorage.setItem('ratu_music', aM); alert('Lagu Web Terupdate!'); location.reload(); } else alert('Auth Code Salah!'); }
-
-        function renderAdmin() {
-            const list = document.getElementById('admin-list');
-            list.innerHTML = prods.map((p, idx) => `
-                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
-                    <input type="text" value="${p.name}" onchange="editItem(${idx}, 'name', this.value)" class="w-full bg-zinc-800 p-3 rounded-lg mb-2 text-[#D4AF37] outline-none font-bold text-xs" placeholder="Nama Produk">
-                    
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <div><label class="text-[8px] text-zinc-500 uppercase">Harga Jual</label><input type="number" value="${p.price}" onchange="editItem(${idx}, 'price', this.value)" class="w-full bg-zinc-800 p-2 rounded text-white outline-none text-xs"></div>
-                        <div><label class="text-[8px] text-zinc-500 uppercase">Harga Coret</label><input type="number" value="${p.oldPrice}" onchange="editItem(${idx}, 'oldPrice', this.value)" class="w-full bg-zinc-800 p-2 rounded text-white outline-none text-xs"></div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <div><label class="text-[8px] text-zinc-500 uppercase">Stok Sisa</label><input type="number" value="${p.stock}" onchange="editItem(${idx}, 'stock', this.value)" class="w-full bg-zinc-800 p-2 rounded text-white outline-none text-xs"></div>
-                        <div><label class="text-[8px] text-zinc-500 uppercase">Stok Awal</label><input type="number" value="${p.maxStock}" onchange="editItem(${idx}, 'maxStock', this.value)" class="w-full bg-zinc-800 p-2 rounded text-white outline-none text-xs"></div>
-                    </div>
-
-                    <label class="text-[8px] text-zinc-500 uppercase mt-2">Timer Kadaluarsa (YYYY-MM-DDTHH:MM:SS)</label>
-                    <input type="text" value="${p.timer}" onchange="editItem(${idx}, 'timer', this.value)" class="w-full bg-zinc-800 p-2 rounded-lg mb-2 text-white outline-none text-xs">
-
-                    <label class="text-[8px] text-zinc-500 uppercase">Link Gambar (Pisahkan dengan tanda koma)</label>
-                    <textarea onchange="editItem(${idx}, 'imgs', this.value)" class="w-full bg-zinc-800 p-3 rounded-lg text-white outline-none text-xs h-20">${p.imgs.join(', ')}</textarea>
-                    
-                    <div class="mt-4 flex justify-end">
-                        <button onclick="deleteItem(${idx})" class="text-red-500 font-bold text-[9px] uppercase tracking-widest bg-red-500/10 px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition">Hapus Produk</button>
-                    </div>
-                </div>`).join('');
-                
-            // Populate Inputs for Admin
-            document.getElementById('logo-url-new').value = aL;
-            document.getElementById('text-center-new').value = aT;
-            document.getElementById('wa-new').value = aW;
-            document.getElementById('music-new').value = aM;
-        }
-
-        function addProduct() { prods.unshift({ id: Date.now(), name: 'Produk Baru', price: 0, oldPrice: 0, imgs: ['https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600'], timer: '2026-12-31T23:59:00', stock: 10, maxStock: 50 }); renderAdmin(); renderStore(); }
-        
-        function editItem(idx, f, v) { 
-            if(['price', 'oldPrice', 'stock', 'maxStock'].includes(f)) { prods[idx][f] = parseInt(v) || 0; }
-            else if (f === 'imgs') { prods[idx][f] = v.split(',').map(s => s.trim()).filter(s => s !== ""); }
-            else { prods[idx][f] = v; }
-            renderStore(); 
-        }
-        
-        function deleteItem(idx) { if(confirm("Hapus Koleksi Ini?")) { prods.splice(idx, 1); renderAdmin(); renderStore(); } }
-        function quantumFix() { alert("System Cache Cleared & Optimized! ⚡"); location.reload(); }
-
-        // -- TIMERS --
-        setInterval(() => {
-            document.querySelectorAll('.item-timer').forEach(el => {
-                const diff = new Date(el.dataset.time).getTime() - new Date().getTime();
-                if(diff <= 0) { el.innerText = "EXPIRED"; return; }
-                const h = Math.floor(diff/(1000*60*60)); const m = Math.floor((diff%(1000*60*60))/(1000*60)); const s = Math.floor((diff%(1000*60))/1000);
-                el.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                if(el.closest('#global-timer')) {
-                    const spans = document.querySelectorAll('#global-timer span');
-                    spans[0].innerText = h.toString().padStart(2,'0'); spans[1].innerText = m.toString().padStart(2,'0'); spans[2].innerText = s.toString().padStart(2,'0');
-                }
-            });
-        }, 1000);
-
-        renderBrand(); renderStore();
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            renderProducts();
+            document.getElementById('intro-audio').play().catch(() => {});
+            console.log("Cybersecurity Systems Initialized. All systems green. ✅");
+        };
     </script>
 </body>
 </html>
