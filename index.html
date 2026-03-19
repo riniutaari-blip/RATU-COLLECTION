@@ -6,419 +6,406 @@
     <title>RATU COLLECTION | Official Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --shopee-orange: #ee4d2d; 
-            --shopee-bg: #f5f5f5;
-            --gold-premium: #D4AF37;
-            --text-main: #222;
-            --text-secondary: #757575;
+            --bg-gray: #f5f5f5;
+            --gold: #D4AF37;
         }
 
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         
         body { 
-            background-color: var(--shopee-bg); 
-            font-family: 'Roboto', sans-serif;
-            margin: 0; padding-bottom: 70px; color: var(--text-main);
-            overflow-x: hidden;
+            background-color: var(--bg-gray); 
+            font-family: -apple-system, Helvetica, Arial, sans-serif;
+            margin: 0; padding-bottom: 70px; overflow-x: hidden;
         }
 
-        /* --- SKELETON & INTRO --- */
-        #intro-screen {
-            position: fixed; inset: 0; background: #fff; z-index: 10000;
+        /* --- ANIMASI LOADING --- */
+        #splash-screen {
+            position: fixed; inset: 0; background: #fff; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            animation: fadeOut 0.8s ease 3s forwards;
+            animation: fadeOut 0.5s ease 2.5s forwards;
         }
-        .shopee-logo-intro {
-            width: 80px; height: 80px; background: var(--shopee-orange);
-            border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 20px rgba(238, 77, 45, 0.3);
+        .loader-ring {
+            width: 60px; height: 60px; border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--shopee-orange); border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        /* --- HEADER SYSTEM --- */
-        .main-header {
-            background: linear-gradient(to bottom, #f53d2d, #f63);
-            position: sticky; top: 0; z-index: 5000; padding: 8px 12px;
-            transition: 0.3s;
-        }
-        .search-box {
-            background: #fff; height: 34px; border-radius: 2px;
-            display: flex; align-items: center; padding: 0 10px; flex: 1;
+        /* --- HEADER --- */
+        .header-sticky {
+            background: linear-gradient(180deg, #f53d2d, #ff6633);
+            position: sticky; top: 0; z-index: 1000; padding: 10px 15px;
         }
 
-        /* --- PRODUCT GRID (SMALL STYLE) --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px; padding: 6px;
+        /* --- PRODUCT GRID (SMALL PORTRAIT 3:4) --- */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 6px; }
+        .product-card { background: #fff; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 1px rgba(0,0,0,0.1); position: relative; }
+        
+        .img-container {
+            position: relative; width: 100%; padding-top: 133%; /* Rasio Potret 3:4 */
+            background: #eee; overflow: hidden;
         }
-        .product-item {
-            background: #fff; border-radius: 2px; overflow: hidden;
-            display: flex; flex-direction: column;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            position: relative; text-decoration: none;
-        }
-        .product-item:active { background: #f9f9f9; }
-
-        /* PORTRAIT RATIO 3:4 (Kecil & Rapi) */
-        .image-wrapper {
-            position: relative; width: 100%; padding-top: 125%; /* Ratio Portrait */
-            background: #fdfdfd; overflow: hidden;
-        }
-        .image-wrapper img {
+        .img-container img {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; object-fit: cover;
         }
 
-        .product-info { padding: 8px; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-title {
-            font-size: 12px; line-height: 14px; height: 28px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-            overflow: hidden; color: #212121; margin-bottom: 8px;
+        .mall-tag {
+            position: absolute; top: 0; left: 0; background: #d0011b;
+            color: white; font-size: 8px; font-weight: bold; padding: 1px 4px;
         }
-        .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-        .product-price { color: var(--shopee-orange); font-size: 14px; font-weight: 500; }
-        .sold-count { font-size: 10px; color: rgba(0,0,0,0.54); }
-
-        /* --- TAGS & BADGES --- */
-        .mall-badge {
-            background: #d0011b; color: #fff; font-size: 8px;
-            padding: 1px 3px; border-radius: 1px; font-weight: bold;
-            margin-right: 4px; vertical-align: middle;
-        }
-        .free-shipping-icon { width: 18px; height: 12px; vertical-align: middle; }
 
         /* --- MODAL SYSTEM --- */
-        .modal-mask {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-            z-index: 9999; display: none; align-items: flex-end;
-            backdrop-filter: blur(4px);
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 10000; display: none; align-items: flex-end;
+            backdrop-filter: blur(2px);
         }
-        .modal-container {
-            background: #fff; width: 100%; max-height: 90vh;
-            border-radius: 16px 16px 0 0; transform: translateY(100%);
-            transition: transform 0.3s ease-out; position: relative;
+        .modal-content {
+            background: #fff; width: 100%; max-height: 85vh;
+            border-radius: 15px 15px 0 0; overflow-y: auto;
+            transform: translateY(100%); transition: transform 0.3s ease;
         }
-        .modal-active { display: flex; }
-        .modal-active .modal-container { transform: translateY(0); }
+        .active .modal-content { transform: translateY(0); }
+        .active { display: flex; }
 
-        .btn-primary {
-            background: var(--shopee-orange); color: #fff;
-            width: 100%; padding: 12px; font-weight: 500;
-            text-align: center; border-radius: 4px; border: none;
+        /* --- CART DRAWER --- */
+        #cart-drawer {
+            position: fixed; right: 0; top: 0; bottom: 0; width: 100%;
+            background: #fff; z-index: 11000; transform: translateX(100%);
+            transition: 0.3s; display: flex; flex-direction: column;
         }
+        #cart-drawer.open { transform: translateX(0); }
 
-        /* --- FOOTER NAV --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: #fff; display: flex; justify-content: space-around;
-            padding: 6px 0; border-top: 1px solid #e0e0e0; z-index: 6000;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #666; font-size: 10px; flex: 1; }
-        .nav-item.active { color: var(--shopee-orange); }
-        .nav-item i { font-size: 20px; margin-bottom: 2px; }
+        /* --- BUTTONS --- */
+        .btn-orange { background: var(--shopee-orange); color: white; border-radius: 3px; font-weight: bold; }
+        .btn-outline { border: 1px solid var(--shopee-orange); color: var(--shopee-orange); border-radius: 3px; }
 
-        /* Custom Scroll */
+        /* --- UTILS --- */
+        .line-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="intro-screen">
-        <div class="shopee-logo-intro">
-            <i class="fas fa-shopping-bag text-white text-4xl"></i>
-        </div>
-        <div class="mt-4 text-[#ee4d2d] font-bold tracking-widest text-sm">RATU COLLECTION</div>
-        <div class="absolute bottom-10 flex items-center gap-2">
-            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/ca5a12d1a3295d9c537123ef6a78299c.png" width="20">
-            <span class="text-gray-400 text-[10px]">Go Internasional</span>
-        </div>
+    <div id="splash-screen">
+        <div class="loader-ring"></div>
+        <h1 class="mt-4 text-orange-600 font-bold tracking-widest">RATU COLLECTION</h1>
     </div>
 
-    <header class="main-header flex items-center gap-3">
-        <div class="search-box">
-            <i class="fas fa-search text-gray-400 text-sm mr-2"></i>
-            <input type="text" placeholder="Baju Ratu Murah..." class="w-full text-xs outline-none bg-transparent">
-        </div>
-        <div class="flex gap-4 text-white text-xl">
-            <div class="relative" onclick="showPopup('Fitur Chat akan segera hadir!')">
-                <i class="far fa-comment-dots"></i>
-                <span class="absolute -top-1 -right-1 bg-white text-red-500 text-[8px] px-1 rounded-full font-bold">1</span>
+    <header class="header-sticky shadow-md">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-white p-0.5 overflow-hidden">
+                <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-full h-full object-cover rounded-full" onerror="this.src='https://via.placeholder.com/100?text=RC'">
             </div>
-            <div class="relative" onclick="showPopup('Keranjang Belanja Kosong')">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-dot" class="absolute -top-1 -right-1 bg-white text-red-500 text-[8px] px-1 rounded-full font-bold">0</span>
+            <div class="flex-1 bg-white h-8 rounded-sm flex items-center px-3 gap-2">
+                <i class="fas fa-search text-gray-400 text-xs"></i>
+                <input type="text" placeholder="Cari di Ratu Collection..." class="text-[11px] w-full bg-transparent">
+            </div>
+            <div class="relative cursor-pointer" onclick="toggleCart(true)">
+                <i class="fas fa-shopping-cart text-white text-lg"></i>
+                <span id="cart-badge" class="absolute -top-2 -right-2 bg-white text-red-600 text-[9px] font-bold px-1.5 rounded-full border border-red-500 hidden">0</span>
             </div>
         </div>
     </header>
 
-    <div class="bg-white p-3 grid grid-cols-5 gap-2 text-center border-b mb-2">
-        <div onclick="showPopup('Klaim Voucher Berhasil!')" class="flex flex-col items-center">
-            <div class="w-9 h-9 bg-red-100 rounded-xl flex items-center justify-center text-red-500 mb-1"><i class="fas fa-ticket-alt"></i></div>
-            <span class="text-[9px]">Voucher</span>
+    <div class="bg-white p-3 mb-2 grid grid-cols-4 gap-4 text-center border-b">
+        <div onclick="alert('Voucher Gratis Ongkir Diklaim!')" class="flex flex-col items-center">
+            <i class="fas fa-truck text-green-500 text-xl"></i><span class="text-[10px] mt-1">Free Ongkir</span>
         </div>
-        <div onclick="showPopup('Dapatkan Koin Setiap Hari!')" class="flex flex-col items-center">
-            <div class="w-9 h-9 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-500 mb-1"><i class="fas fa-coins"></i></div>
-            <span class="text-[9px]">Koin Saya</span>
+        <div onclick="alert('Koin Ratu: 5.000')" class="flex flex-col items-center">
+            <i class="fas fa-coins text-yellow-500 text-xl"></i><span class="text-[10px] mt-1">Koin</span>
+        </div>
+        <div onclick="alert('Fitur Live Segera Datang')" class="flex flex-col items-center">
+            <i class="fas fa-video text-red-500 text-xl"></i><span class="text-[10px] mt-1">Live</span>
         </div>
         <div onclick="location.reload()" class="flex flex-col items-center">
-            <div class="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center text-blue-500 mb-1"><i class="fas fa-sync-alt"></i></div>
-            <span class="text-[9px]">Update</span>
-        </div>
-        <div onclick="showPopup('Gratis Ongkir Min. Belanja Rp0')" class="flex flex-col items-center">
-            <div class="w-9 h-9 bg-green-100 rounded-xl flex items-center justify-center text-green-500 mb-1"><i class="fas fa-truck"></i></div>
-            <span class="text-[9px]">Free Ongkir</span>
-        </div>
-        <div onclick="showPopup('Selamat Datang Ratu!')" class="flex flex-col items-center">
-            <div class="w-9 h-9 bg-purple-100 rounded-xl flex items-center justify-center text-purple-500 mb-1"><i class="fas fa-star"></i></div>
-            <span class="text-[9px]">Ratu Mall</span>
+            <i class="fas fa-sync text-blue-500 text-xl"></i><span class="text-[10px] mt-1">Refresh</span>
         </div>
     </div>
 
-    <div class="bg-white p-3 mb-2">
-        <div class="flex justify-between items-center mb-2">
-            <div class="flex items-center gap-2">
-                <h2 class="text-orange-600 font-bold italic tracking-tighter">FLASH SALE</h2>
-                <div id="countdown" class="flex gap-1 text-white font-bold text-[10px]">
-                    <span class="bg-black px-1 rounded">01</span>:
-                    <span class="bg-black px-1 rounded">24</span>:
-                    <span class="bg-black px-1 rounded">59</span>
-                </div>
+    <main class="p-1">
+        <div class="flex items-center gap-2 px-2 py-2">
+            <div class="h-4 w-1 bg-red-500"></div>
+            <h2 class="text-xs font-bold text-gray-700 uppercase">Koleksi Terbaru Ratu</h2>
+        </div>
+        <div id="main-grid" class="product-grid">
             </div>
-            <span class="text-[10px] text-gray-400">Lihat Semua ></span>
+    </main>
+
+    <div id="cart-drawer">
+        <div class="p-4 flex items-center gap-4 border-b">
+            <i class="fas fa-arrow-left text-orange-600 text-lg" onclick="toggleCart(false)"></i>
+            <h2 class="font-bold flex-1 text-center">Keranjang Saya</h2>
+        </div>
+        <div id="cart-items-list" class="flex-1 overflow-y-auto p-4 bg-gray-50">
+            </div>
+        <div class="p-4 border-t bg-white">
+            <div class="flex justify-between mb-4">
+                <span class="text-sm">Total Belanja:</span>
+                <span id="cart-total" class="font-bold text-orange-600 text-lg">Rp 0</span>
+            </div>
+            <button onclick="openCheckoutModal()" class="w-full btn-orange py-3 uppercase text-sm">Checkout Sekarang</button>
         </div>
     </div>
 
-    <div class="flex items-center gap-2 px-3 mb-2">
-        <div class="w-1 h-4 bg-red-500"></div>
-        <h2 class="text-xs font-bold text-gray-700 uppercase">Rekomendasi Ratu</h2>
-    </div>
-
-    <div id="product-container" class="product-grid">
-        </div>
-
-    <div id="modal-detail" class="modal-mask" onclick="closeModal('modal-detail')">
-        <div class="modal-container" onclick="event.stopPropagation()">
-            <div class="p-4 flex gap-4 border-b relative">
+    <div id="modal-detail" class="modal-overlay" onclick="closeM('modal-detail')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="p-4 flex gap-4 border-b">
                 <div class="w-24 h-32 rounded border overflow-hidden">
-                    <img id="m-img" src="" class="w-full h-full object-cover">
+                    <img id="d-img" src="" class="w-full h-full object-cover">
                 </div>
-                <div class="flex-1 pt-2">
-                    <p id="m-price" class="text-xl font-bold text-red-600"></p>
-                    <p class="text-[10px] text-gray-400 mt-1">Stok: 1.294</p>
-                    <div class="flex gap-2 mt-4">
-                        <span class="bg-orange-50 text-orange-600 text-[9px] border border-orange-200 px-1">Mall</span>
-                        <span class="bg-blue-50 text-blue-600 text-[9px] border border-blue-200 px-1">Garansi Ori</span>
+                <div class="flex-1">
+                    <p id="d-price" class="text-xl font-bold text-red-600"></p>
+                    <p class="text-[10px] text-gray-400 mt-1 italic">Tersedia: 99+ Stok</p>
+                    <div class="flex gap-1 mt-3">
+                        <span class="bg-red-50 text-red-600 text-[8px] border border-red-200 px-1 font-bold">MALL</span>
+                        <span class="bg-orange-50 text-orange-600 text-[8px] border border-orange-200 px-1 font-bold">STAR+</span>
                     </div>
                 </div>
-                <button onclick="closeModal('modal-detail')" class="absolute top-4 right-4 text-gray-400 text-2xl">&times;</button>
             </div>
-            <div class="p-4 bg-gray-50 min-h-[150px]">
-                <h3 id="m-name" class="font-bold text-gray-800 text-sm mb-3"></h3>
-                <p id="m-desc" class="text-xs text-gray-500 leading-relaxed"></p>
+            <div class="p-4 bg-white min-h-[100px]">
+                <h3 id="d-name" class="font-bold text-sm mb-2 text-gray-800"></h3>
+                <p id="d-desc" class="text-xs text-gray-500 leading-relaxed"></p>
             </div>
-            <div class="p-4 flex gap-2">
-                <button onclick="showPopup('Ditambahkan ke Keranjang')" class="flex-1 border-2 border-orange-600 text-orange-600 p-3 rounded font-bold text-xs uppercase">Beli Sekarang</button>
-                <button onclick="openCheckout()" class="flex-1 bg-orange-600 text-white p-3 rounded font-bold text-xs uppercase shadow-lg">Checkout</button>
+            <div class="p-4 flex gap-2 border-t">
+                <button onclick="addToCart()" class="flex-1 btn-outline py-3 text-[10px] font-bold uppercase"><i class="fas fa-cart-plus mr-1"></i> + Keranjang</button>
+                <button onclick="buyNow()" class="flex-1 btn-orange py-3 text-[10px] font-bold uppercase">Beli Sekarang</button>
             </div>
         </div>
     </div>
 
-    <div id="modal-checkout" class="modal-mask" onclick="closeModal('modal-checkout')">
-        <div class="modal-container p-5" onclick="event.stopPropagation()">
-            <h3 class="font-bold border-b pb-3 mb-4 flex items-center gap-2">
-                <i class="fas fa-shipping-fast text-red-500"></i> Informasi Pengiriman
-            </h3>
+    <div id="modal-checkout" class="modal-overlay" onclick="closeM('modal-checkout')">
+        <div class="modal-content p-6" onclick="event.stopPropagation()">
+            <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">📦 Konfirmasi Order</h3>
             <div class="space-y-3">
-                <input type="text" id="c-prov" placeholder="Provinsi" class="w-full border p-3 rounded text-sm outline-none focus:border-red-500">
-                <input type="text" id="c-kota" placeholder="Kota / Kabupaten" class="w-full border p-3 rounded text-sm outline-none">
-                <input type="text" id="c-desa" placeholder="Desa / Kelurahan" class="w-full border p-3 rounded text-sm outline-none">
-                <div class="flex gap-2">
-                    <input type="text" id="c-rt" placeholder="RT/RW" class="w-full border p-3 rounded text-sm">
-                    <input type="text" id="c-no" placeholder="No. Rumah" class="w-full border p-3 rounded text-sm">
-                </div>
-                <select id="c-pay" class="w-full border p-3 rounded text-sm bg-gray-50 font-bold">
-                    <option value="Transfer BCA">Bank Transfer (BCA)</option>
+                <input type="text" id="form-name" placeholder="Nama Lengkap" class="w-full border p-3 rounded text-sm outline-none">
+                <input type="text" id="form-addr" placeholder="Alamat Lengkap (Prov/Kota/RT/RW)" class="w-full border p-3 rounded text-sm">
+                <select id="form-pay" class="w-full border p-3 rounded text-sm bg-gray-50 font-bold">
+                    <option value="Transfer BCA">Transfer Bank (BCA)</option>
                     <option value="DANA / OVO">E-Wallet (Dana/OVO)</option>
                     <option value="COD">COD - Bayar di Tempat</option>
                 </select>
             </div>
-            <button onclick="sendOrder()" class="btn-primary mt-6 bg-black">KIRIM KE WHATSAPP ADMIN</button>
+            <button onclick="sendOrder()" class="w-full btn-orange py-3 mt-6 uppercase text-sm bg-black">Kirim ke WhatsApp</button>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Beranda</span>
-        </div>
-        <div class="nav-item" onclick="showPopup('Live Ratu segera hadir!')">
-            <i class="fas fa-video"></i>
-            <span>Live</span>
-        </div>
-        <div class="nav-item" onclick="showPopup('Cek Video Produk Terbaru')">
-            <i class="fas fa-play-circle"></i>
-            <span>Video</span>
-        </div>
-        <div class="nav-item" onclick="showPopup('Menu Notifikasi')">
-            <i class="far fa-bell"></i>
-            <span>Notifikasi</span>
-        </div>
-        <div class="nav-item" onclick="showAdmin()">
-            <i class="far fa-user"></i>
-            <span>Saya</span>
-        </div>
+    <nav class="fixed bottom-0 inset-x-0 bg-white border-t flex justify-around py-3 z-[1000]">
+        <div class="text-orange-600 text-center"><i class="fas fa-home text-xl"></i><p class="text-[9px]">Beranda</p></div>
+        <div class="text-gray-400 text-center" onclick="alert('Belum ada video terbaru')"><i class="fas fa-play-circle text-xl"></i><p class="text-[9px]">Video</p></div>
+        <div class="text-gray-400 text-center" onclick="alert('Notifikasi Kosong')"><i class="far fa-bell text-xl"></i><p class="text-[9px]">Notifikasi</p></div>
+        <div class="text-gray-400 text-center" onclick="showAdmin()"><i class="far fa-user text-xl"></i><p class="text-[9px]">Saya</p></div>
     </nav>
 
-    <audio id="ratu-bgm" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
+    <audio id="bgm" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
 
     <script>
-        // --- DATABASE PRODUK (6 PRODUK) ---
-        const collection = [
+        // --- DATA PRODUK ---
+        const products = [
             { 
                 id: 1, 
-                title: "Wong Urip Premium - Exclusive Edition 2026", 
+                name: "Wong Urip Signature - Black Royal Series 2026", 
                 price: 0, 
-                pLabel: "Hubungi Admin", 
+                priceTxt: "Hubungi Admin", 
                 img: encodeURI("foto-1 2026-03-19 at 13.40.41.jpeg"),
-                desc: "Koleksi paling dicari dengan sentuhan kain premium yang memberikan kemewahan maksimal bagi setiap Ratu." 
+                desc: "Koleksi paling dicari dari Ratu Collection. Bahan kain premium berkualitas tinggi."
             },
             { 
                 id: 2, 
-                title: "Mba Simbet Dress Luxury - Sutra Putih Pearl", 
+                name: "Mba Simbet Elegance - Silk Pearl Edition", 
                 price: 0, 
-                pLabel: "Limited Stock", 
+                priceTxt: "Stok Terbatas", 
                 img: encodeURI("WhatsApp Image 2026-03-19 at 13.40.16.jpeg"),
-                desc: "Gaun sutra eksklusif yang dirancang oleh desainer internal Ratu Collection untuk acara spesial Anda." 
+                desc: "Gaun sutra premium dengan potongan desain eksklusif internasional."
             },
             { 
                 id: 3, 
-                title: "Tas Selempang Wanita Impor Gold Majesty", 
-                price: 1250000, 
-                pLabel: "Rp 1.250.000", 
+                name: "Handbag Majesty Gold - International Grade", 
+                price: 850000, 
+                priceTxt: "Rp 850.000", 
                 img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500",
-                desc: "Tas impor dengan ornamen emas 24k simulasi. Mewah, kokoh, dan berkelas internasional." 
+                desc: "Tas impor dengan material premium dan aksen emas mewah."
             },
             { 
                 id: 4, 
-                title: "Cincin Mahkota Berlian - Royal Crown Series", 
-                price: 3450000, 
-                pLabel: "Rp 3.450.000", 
+                name: "Cincin Mahkota Berlian Simulasi 24K", 
+                price: 1250000, 
+                priceTxt: "Rp 1.250.000", 
                 img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=500",
-                desc: "Simbol kemewahan sejati. Cincin berlian simulasi dengan desain mahkota Ratu yang memikat hati." 
+                desc: "Perhiasan mahakarya khas Ratu Collection untuk mempercantik jemari Anda."
             },
             { 
                 id: 5, 
-                title: "Scarf Silk Mewah - Corak Golden Abstract", 
-                price: 250000, 
-                pLabel: "Rp 250.000", 
-                img: "https://images.unsplash.com/photo-1584030373081-f37b7bb4fa82?w=500",
-                desc: "Syal sutra lembut yang menambah pesona elegan di setiap penampilan Ratu." 
+                name: "Royal Velvet Heels - Gold Edition", 
+                price: 1500000, 
+                priceTxt: "Rp 1.500.000", 
+                img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500",
+                desc: "Langkah kaki mewah dengan heels bertahtakan aksen emas dan kain beludru."
             },
             { 
                 id: 6, 
-                title: "Sepatu Heels Gold Diamond Luxury", 
-                price: 1850000, 
-                pLabel: "Rp 1.850.000", 
-                img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500",
-                desc: "Langkah kaki yang memancarkan aura sultan dengan heels bertahtakan permata simulasi." 
+                name: "Syal Sutra Ratu - Batik Golden Series", 
+                price: 350000, 
+                priceTxt: "Rp 350.000", 
+                img: "https://images.unsplash.com/photo-1584030373081-f37b7bb4fa82?w=500",
+                desc: "Aksesori pelengkap gaya Ratu yang elegan dan sangat halus di kulit."
             }
         ];
 
-        let selectedProduct = null;
+        let cart = [];
+        let activeP = null;
         let adminPhone = "6285640056650";
 
-        // --- RENDER FUNCTIONS ---
-        function renderApp() {
-            const grid = document.getElementById('product-container');
-            grid.innerHTML = collection.map(p => `
-                <div class="product-item" onclick="openDetail(${p.id})">
-                    <div class="image-wrapper">
+        // --- RENDER PRODUK ---
+        function renderItems() {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="openDetail(${p.id})">
+                    <span class="mall-tag">Mall</span>
+                    <div class="img-container">
                         <img src="${p.img}" onerror="this.src='https://via.placeholder.com/300x400?text=Produk+Ratu'">
                     </div>
-                    <div class="product-info">
-                        <div class="product-title">
-                            <span class="mall-badge">Mall</span>${p.title}
-                        </div>
-                        <div class="price-row">
-                            <span class="product-price">${p.pLabel}</span>
-                            <span class="sold-count">1rb+ Terjual</span>
-                        </div>
-                        <div class="mt-2 flex items-center">
-                            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/ca5a12d1a3295d9c537123ef6a78299c.png" class="free-shipping-icon">
-                            <span class="text-[8px] text-green-500 ml-1">Gratis Ongkir</span>
+                    <div class="p-2">
+                        <h3 class="text-[11px] line-clamp leading-tight h-7 font-medium text-gray-700">${p.name}</h3>
+                        <p class="text-orange-600 font-bold text-sm mt-2">${p.priceTxt}</p>
+                        <div class="flex items-center gap-1 mt-1">
+                            <span class="text-[8px] bg-orange-50 text-orange-600 border border-orange-200 px-1">Extra</span>
+                            <span class="text-[9px] text-gray-400">1rb+ Terjual</span>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // --- INTERACTION LOGIC ---
+        // --- LOGIKA KERANJANG (CORE) ---
+        function toggleCart(show) {
+            document.getElementById('cart-drawer').classList.toggle('open', show);
+            if(show) renderCartItems();
+        }
+
+        function addToCart() {
+            const existing = cart.find(item => item.id === activeP.id);
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...activeP, qty: 1 });
+            }
+            updateCartUI();
+            closeM('modal-detail');
+            alert("✨ Berhasil masuk keranjang, Ratu!");
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const totalQty = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            if(totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderCartItems() {
+            const list = document.getElementById('cart-items-list');
+            const totalEl = document.getElementById('cart-total');
+            
+            if(cart.length === 0) {
+                list.innerHTML = `<div class="text-center mt-20 text-gray-400 text-sm"><i class="fas fa-shopping-basket text-4xl mb-4 opacity-20"></i><br>Keranjang Ratu masih kosong...</div>`;
+                totalEl.innerText = "Rp 0";
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = cart.map(item => {
+                total += (item.price * item.qty);
+                return `
+                    <div class="bg-white p-3 rounded shadow-sm mb-3 flex gap-3 items-center">
+                        <img src="${item.img}" class="w-14 h-18 object-cover rounded border">
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold text-gray-700 line-clamp">${item.name}</h4>
+                            <p class="text-orange-600 font-bold text-xs mt-1">${item.priceTxt}</p>
+                            <div class="flex items-center gap-4 mt-2">
+                                <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 border flex items-center justify-center rounded text-gray-500">-</button>
+                                <span class="text-sm font-bold">${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 border flex items-center justify-center rounded text-gray-500">+</button>
+                            </div>
+                        </div>
+                        <i class="far fa-trash-alt text-gray-300" onclick="removeItem(${item.id})"></i>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerText = total > 0 ? "Rp " + total.toLocaleString('id-ID') : "Rp -";
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            item.qty += delta;
+            if(item.qty < 1) removeItem(id);
+            renderCartItems();
+            updateCartUI();
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            renderCartItems();
+            updateCartUI();
+        }
+
+        // --- MODAL CONTROL ---
         function openDetail(id) {
-            selectedProduct = collection.find(p => p.id === id);
-            document.getElementById('m-img').src = selectedProduct.img;
-            document.getElementById('m-name').innerText = selectedProduct.title;
-            document.getElementById('m-price').innerText = selectedProduct.pLabel;
-            document.getElementById('m-desc').innerText = selectedProduct.desc;
-            
-            document.getElementById('modal-detail').classList.add('modal-active');
-            
-            // Audio Trigger
-            const bgm = document.getElementById('ratu-bgm');
-            bgm.play().catch(() => {});
+            activeP = products.find(p => p.id === id);
+            document.getElementById('d-img').src = activeP.img;
+            document.getElementById('d-name').innerText = activeP.name;
+            document.getElementById('d-price').innerText = activeP.priceTxt;
+            document.getElementById('d-desc').innerText = activeP.desc;
+            document.getElementById('modal-detail').classList.add('active');
+            document.getElementById('bgm').play().catch(() => {});
         }
 
-        function openCheckout() {
-            closeModal('modal-detail');
-            document.getElementById('modal-checkout').classList.add('modal-active');
+        function buyNow() {
+            addToCart();
+            toggleCart(true);
         }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('modal-active');
+        function openCheckoutModal() {
+            if(cart.length === 0) return alert("Belum ada barang dipilih, Ratu!");
+            document.getElementById('modal-checkout').classList.add('active');
         }
 
-        function showPopup(txt) {
-            alert("👑 Ratu Notification:\n" + txt);
-        }
+        function closeM(id) { document.getElementById(id).classList.remove('active'); }
 
+        // --- ORDER TO WA ---
         function sendOrder() {
-            const prov = document.getElementById('c-prov').value;
-            const kota = document.getElementById('c-kota').value;
-            const desa = document.getElementById('c-desa').value;
-            const rt = document.getElementById('c-rt').value;
-            const rumah = document.getElementById('c-no').value;
-            const pay = document.getElementById('c-pay').value;
+            const name = document.getElementById('form-name').value;
+            const addr = document.getElementById('form-addr').value;
+            const pay = document.getElementById('form-pay').value;
 
-            if(!prov || !kota || !desa) return alert("Mohon lengkapi alamat kirim Ratu!");
+            if(!name || !addr) return alert("Mohon lengkapi data Ratu dulu ya!");
 
-            const msg = `Halo Ratu Collection! ✨\n\nSAYA MAU ORDER:\n📦 *${selectedProduct.title}*\n💰 Harga: ${selectedProduct.pLabel}\n\n📍 *ALAMAT LENGKAP:*\nProv: ${prov}\nKota: ${kota}\nDesa: ${desa}\nRT/RW: ${rt}\nRumah: ${rumah}\n\n💳 *METODE:* ${pay}\n\nSegera hubungi saya ya! 👑`;
+            let productList = cart.map(i => `- ${i.name} (${i.qty}x) [${i.priceTxt}]`).join('\n');
+            let totalTxt = document.getElementById('cart-total').innerText;
+
+            const msg = `Halo Ratu Collection! ✨\n\nSAYA MAU ORDER:\n${productList}\n\n💰 *TOTAL:* ${totalTxt}\n\n📍 *DATA PENERIMA:*\nNama: ${name}\nAlamat: ${addr}\n💳 Pembayaran: ${pay}\n\nMohon dikonfirmasi pesanannya ya! 👑`;
+            
             window.open(`https://wa.me/${adminPhone}?text=${encodeURIComponent(msg)}`);
         }
 
         function showAdmin() {
-            const pass = prompt("🔒 Masukkan Kode Rahasia Admin:");
-            if(pass === "ratu") {
-                const newWA = prompt("Masukkan Nomor WA Admin Baru (628...):", adminPhone);
-                if(newWA) { adminPhone = newWA; alert("Nomor WA Berhasil Diupdate!"); }
-            } else {
-                alert("Akses Ditolak!");
+            const pw = prompt("Akses Admin:");
+            if(pw === "ratu") {
+                const n = prompt("Update No WA (628...):", adminPhone);
+                if(n) adminPhone = n;
             }
         }
 
-        // Countdown Timer Logic
-        setInterval(() => {
-            const cd = document.getElementById('countdown');
-            let h = Math.floor(Math.random() * 2);
-            let m = Math.floor(Math.random() * 59);
-            let s = Math.floor(Math.random() * 59);
-            cd.innerHTML = `<span class="bg-black px-1 rounded">${h < 10 ? '0'+h : h}</span>:<span class="bg-black px-1 rounded">${m < 10 ? '0'+m : m}</span>:<span class="bg-black px-1 rounded">${s < 10 ? '0'+s : s}</span>`;
-        }, 1000);
-
-        window.onload = renderApp;
+        window.onload = renderItems;
     </script>
 </body>
 </html>
