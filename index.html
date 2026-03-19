@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RATU COLLECTION | Ultimate Royal Store 2026</title>
+    <title>RATU COLLECTION | Quantum Sovereign Store 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -12,341 +12,271 @@
     <style>
         :root { 
             --royal-red: #ee4d2d; 
-            --gold-light: #f1c40f;
-            --gold-dark: #D4AF37;
-            --deep-black: #050505;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #f1c40f 100%);
+            --dark-royal: #0a0a0a;
         }
 
-        /* --- SYSTEM CLEANER --- */
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        /* --- QUANTUM RESET --- */
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background-color: #f8f8f8; 
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: #1a1a1a; overflow-x: hidden;
-            height: 100vh; width: 100vw;
+            background-color: #f4f4f4; 
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; height: 100vh;
         }
 
-        /* --- V100 INTRO SYSTEM (HARD PROTECTION) --- */
-        #royal-intro-shield {
-            position: fixed; inset: 0; background: var(--deep-black); z-index: 999999;
+        /* --- IMPERIAL INTRO (SHIELD MODE) --- */
+        #quantum-shield {
+            position: fixed; inset: 0; background: var(--dark-royal); z-index: 999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: all 0.6s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s;
         }
-        .intro-ring {
-            width: 130px; height: 130px; border: 2px solid var(--gold-dark);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            position: relative; animation: pulse-ring 2s infinite;
+        .royal-loader {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 3px solid transparent; border-top-color: #D4AF37;
+            animation: spin 1s linear infinite; position: absolute;
         }
-        .intro-logo-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; z-index: 10; }
-        
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            70% { box-shadow: 0 0 0 30px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- SYSTEM REFRESH BUTTON (CANGGIH) --- */
+        #emergency-refresh {
+            position: fixed; bottom: 100px; left: 20px; z-index: 9999;
+            background: var(--gold-gradient); color: black;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+            cursor: pointer; animation: pulse-gold 2s infinite;
         }
 
-        /* --- LUXURY UI COMPONENTS --- */
-        .glass-header {
-            background: linear-gradient(135deg, #f53d2d, #ff6633);
-            position: sticky; top: 0; z-index: 10000; padding: 12px 18px;
-            display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-        .search-bar-royal { background: #fff; flex: 1; height: 40px; border-radius: 6px; display: flex; align-items: center; padding: 0 15px; }
-
-        /* --- GRID PROTECTION SYSTEM --- */
-        .store-grid {
+        /* --- GRID ARCHITECTURE --- */
+        .royal-grid-container {
             display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 12px; padding: 12px; max-width: 1400px; margin: 0 auto;
-            min-height: 500px; /* Mencegah layout collapse */
+            gap: 12px; padding: 15px; max-width: 1400px; margin: 0 auto;
         }
-        @media (min-width: 1024px) { .store-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; padding: 40px; } }
+        @media (min-width: 1024px) { .royal-grid-container { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
 
-        .royal-card {
-            background: #fff; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.03);
+        .product-item {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: 0.4s ease;
+            position: relative; border: 1px solid rgba(0,0,0,0.05);
         }
-        .royal-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .product-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
-        .img-container { position: relative; width: 100%; padding-top: 135%; background: #f0f0f0; overflow: hidden; }
-        .img-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .image-box { position: relative; width: 100%; padding-top: 135%; background: #f9f9f9; }
+        .image-box img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- SLIDE PANELS --- */
-        .royal-panel {
-            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 500px;
-            background: #fff; z-index: 50000; transform: translateX(100%);
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            display: flex; flex-direction: column;
+        /* --- NAVIGATION LUXURY --- */
+        .nav-top {
+            background: linear-gradient(90deg, #f53d2d, #ff6633);
+            position: sticky; top: 0; z-index: 10000; padding: 15px 20px;
+            display: flex; align-items: center; justify-content: space-between;
         }
-        .royal-panel.active { transform: translateX(0); box-shadow: -15px 0 50px rgba(0,0,0,0.3); }
-        .overlay-dimmer {
+
+        /* --- DRAWER SYSTEM --- */
+        .drawer-side {
+            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 450px;
+            background: white; z-index: 50000; transform: translateX(100%);
+            transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .drawer-side.open { transform: translateX(0); }
+        .master-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-            z-index: 40000; display: none; backdrop-filter: blur(8px);
+            z-index: 45000; display: none; backdrop-filter: blur(10px);
         }
 
-        /* --- VIDEO REELS --- */
-        #reels-viewport {
-            position: fixed; inset: 0; background: #000; z-index: 80000;
-            display: none; flex-direction: column;
+        /* --- KEY ANIMATIONS --- */
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
-        .v-full { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- BUTTONS & ANIMATIONS --- */
-        .btn-gold-action { 
-            background: linear-gradient(135deg, #D4AF37, #f1c40f); 
-            color: #000; font-weight: 900; width: 100%; padding: 20px; 
-            border-radius: 12px; text-transform: uppercase; letter-spacing: 2px;
-        }
-        .wa-floating-btn { background: #25d366; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-radius: 50px; font-weight: 800; }
     </style>
 </head>
-<body id="royal-body">
+<body id="imperial-app">
 
-    <div id="royal-intro-shield" onclick="unlockStore()">
-        <div class="animate__animated animate__zoomIn">
-            <div class="intro-ring">
-                <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="intro-logo-img" onerror="this.src='https://via.placeholder.com/150'">
-            </div>
+    <div id="quantum-shield" onclick="igniteEngine()">
+        <div class="relative flex items-center justify-center">
+            <div class="royal-loader"></div>
+            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-20 h-20 rounded-full border-2 border-white shadow-2xl z-10">
         </div>
-        <h1 class="mt-8 text-white font-black text-2xl tracking-[10px] animate__animated animate__fadeInUp animate__delay-1s">RATU COLLECTION</h1>
-        <div class="mt-4 px-6 py-2 border border-gold-dark/30 rounded-full text-white/50 text-[10px] uppercase tracking-[4px]">Sentuh Layar Untuk Masuk</div>
+        <h1 class="text-white font-black text-2xl tracking-[12px] mt-10 animate__animated animate__pulse animate__infinite">RATU COLLECTION</h1>
+        <p class="text-white/30 text-[9px] mt-5 tracking-[5px] uppercase">Klik Untuk Inisialisasi Sistem</p>
     </div>
 
-    <div id="overlay-dimmer" class="overlay-dimmer" onclick="closeAllPanels()"></div>
+    <div id="emergency-refresh" onclick="forceSystemReboot()" title="Reboot System">
+        <i class="fas fa-sync-alt fa-spin"></i>
+    </div>
 
-    <header class="glass-header">
-        <div class="w-11 h-11 bg-white rounded-full overflow-hidden border-2 border-white shadow-xl">
-            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-full h-full object-cover">
+    <div id="master-overlay" class="master-overlay" onclick="closeAll()"></div>
+
+    <header class="nav-top shadow-xl">
+        <div class="flex items-center gap-3">
+            <img src="Gemini_Generated_Image_gfusskgfusskgfus.png" class="w-10 h-10 rounded-full border-2 border-white">
+            <span class="text-white font-black text-xs tracking-tighter uppercase">Ratu Collection</span>
         </div>
-        <div class="search-bar-royal shadow-inner">
-            <i class="fas fa-search text-gray-300 mr-3"></i>
-            <input type="text" id="search-input" placeholder="Cari koleksi eksklusif Ratu..." class="w-full text-xs outline-none bg-transparent font-medium">
-        </div>
-        <div class="flex gap-4 text-white text-2xl relative" onclick="openPanel('cart-panel')">
-            <i class="fas fa-shopping-bag"></i>
-            <span id="cart-counter" class="absolute -top-2 -right-2 bg-white text-red-600 text-[10px] font-black px-1.5 rounded-full hidden border-2 border-red-600">0</span>
+        <div class="flex gap-5 text-white text-xl">
+            <div class="relative" onclick="openDrawer('cart-drawer')">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="badge-count" class="absolute -top-2 -right-2 bg-white text-red-600 text-[9px] font-black px-1.5 rounded-full hidden border border-red-600">0</span>
+            </div>
+            <i class="fas fa-bars" onclick="openDrawer('chat-drawer')"></i>
         </div>
     </header>
 
-    <div class="bg-white p-5 grid grid-cols-4 gap-4 text-center border-b sticky top-[68px] z-[9000]">
-        <div onclick="alert('Voucher Royal Aktif!')" class="flex flex-col items-center group">
-            <div class="w-14 h-14 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm transition group-hover:bg-red-500 group-hover:text-white"><i class="fas fa-ticket-alt"></i></div>
-            <span class="text-[9px] font-black uppercase text-gray-400">Voucher</span>
-        </div>
-        <div onclick="toggleReels(true)" class="flex flex-col items-center group">
-            <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm transition group-hover:bg-blue-500 group-hover:text-white"><i class="fas fa-camera-retro"></i></div>
-            <span class="text-[9px] font-black uppercase text-gray-400">Reels</span>
-        </div>
-        <div onclick="openPanel('chat-panel')" class="flex flex-col items-center group">
-            <div class="w-14 h-14 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm transition group-hover:bg-green-500 group-hover:text-white"><i class="fab fa-whatsapp"></i></div>
-            <span class="text-[9px] font-black uppercase text-gray-400">Admin</span>
-        </div>
-        <div onclick="location.reload()" class="flex flex-col items-center group">
-            <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center text-2xl mb-1 shadow-sm transition group-hover:bg-yellow-500 group-hover:text-white"><i class="fas fa-crown"></i></div>
-            <span class="text-[9px] font-black uppercase text-gray-400">Royal</span>
-        </div>
-    </div>
-
-    <main class="pb-32">
-        <div class="flex items-center justify-between px-6 py-6 bg-white mt-2">
-            <div class="flex items-center gap-3">
-                <div class="w-2 h-6 bg-red-600 rounded-full animate-pulse"></div>
-                <h2 class="text-sm font-black text-gray-800 uppercase tracking-widest italic">Koleksi Terkini Ratu</h2>
+    <main class="min-h-screen pb-32">
+        <div class="bg-white p-5 border-b flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-1 h-5 bg-red-600"></div>
+                <h2 class="font-black text-xs uppercase tracking-widest text-gray-800 italic">Koleksi Royal 2026</h2>
             </div>
-            <span class="text-[10px] font-bold text-red-600">STOK TERBATAS ✨</span>
-        </div>
-
-        <div id="product-grid-container" class="store-grid">
-            <div class="col-span-2 py-20 text-center opacity-50">
-                <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
-                <p class="text-xs font-bold uppercase tracking-widest">Menyiapkan Koleksi Ratu...</p>
+            <div class="flex gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                <span class="text-[9px] font-bold text-gray-400">SERVER ACTIVE</span>
             </div>
         </div>
+
+        <div id="grid-engine" class="royal-grid-container">
+            </div>
     </main>
 
-    <div id="reels-viewport">
-        <div class="absolute top-10 left-8 z-[80001] bg-black/40 backdrop-blur-xl p-4 rounded-full" onclick="toggleReels(false)">
-            <i class="fas fa-arrow-left text-white text-xl"></i>
+    <div id="cart-drawer" class="drawer-side">
+        <div class="p-6 border-b flex justify-between items-center bg-white sticky top-0 z-10">
+            <h3 class="font-black text-xl italic uppercase">Checkout Ratu</h3>
+            <i class="fas fa-times text-2xl text-gray-200" onclick="closeAll()"></i>
         </div>
-        <video id="reels-video-element" class="v-full" loop muted playsinline autoplay>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-the-street-34446-large.mp4" type="video/mp4">
-        </video>
-        <div class="absolute bottom-16 left-8 right-24 text-white animate__animated animate__fadeInUp">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="bg-red-600 px-3 py-1 rounded-md text-[10px] font-black tracking-widest uppercase">LIVE</span>
-                <span class="text-xs font-bold">Ratu Collection International ✨</span>
+        <div id="cart-list-render" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+        <div class="p-8 border-t bg-white">
+            <div class="flex justify-between mb-6">
+                <span class="font-bold text-gray-400 text-xs">TOTAL TAGIHAN:</span>
+                <span id="total-price-text" class="font-black text-2xl text-red-600">Rp 0</span>
             </div>
-            <h3 class="font-black text-2xl mb-3 tracking-tight">Elegance Without Limits.</h3>
-            <p class="text-sm opacity-60 mb-8 leading-relaxed">Rasakan kemewahan bahan premium yang dirancang khusus untuk memancarkan aura Ratu sejati Anda.</p>
-            <button onclick="toggleReels(false); openProductDetail(1)" class="bg-white text-black font-black py-4 px-12 rounded-full text-xs uppercase shadow-2xl tracking-[3px] hover:scale-105 transition">Beli Sekarang</button>
+            <button onclick="openFinalCheckout()" class="w-full py-5 bg-black text-white font-black rounded-2xl tracking-[4px] uppercase text-xs shadow-2xl">Beli Sekarang</button>
         </div>
     </div>
 
-    <div id="cart-panel" class="royal-panel">
-        <div class="p-6 border-b flex items-center justify-between bg-white shadow-md">
-            <h3 class="font-black text-2xl italic">KERANJANG <span class="text-red-600 uppercase">RATU</span></h3>
-            <i class="fas fa-times text-2xl text-gray-200 cursor-pointer" onclick="closeAllPanels()"></i>
+    <div id="chat-drawer" class="drawer-side">
+        <div class="p-6 border-b flex justify-between items-center bg-white">
+            <h3 class="font-black text-xl italic uppercase">Admin Support</h3>
+            <i class="fas fa-times text-2xl text-gray-200" onclick="closeAll()"></i>
         </div>
-        <div id="cart-items-wrapper" class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            </div>
-        <div class="p-10 border-t bg-white shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-            <div class="flex justify-between items-center mb-8">
-                <span class="text-gray-400 font-bold text-xs uppercase tracking-widest">Total Belanjaan:</span>
-                <span id="cart-total-price" class="text-3xl font-black text-red-600">Rp 0</span>
-            </div>
-            <button onclick="initiateCheckout()" class="btn-gold-action shadow-2xl shadow-yellow-200">Lanjutkan Pembayaran</button>
+        <div class="p-10 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-4xl mb-5 shadow-inner"><i class="fab fa-whatsapp"></i></div>
+            <h4 class="font-black text-lg mb-2">Layanan VIP Ratu</h4>
+            <p class="text-xs text-gray-400 leading-relaxed mb-8">Butuh bantuan mengenai ukuran atau pengiriman? Admin kami siap melayani Anda 24/7.</p>
+            <button onclick="contactWA('Halo Admin, saya Ratu...')" class="w-full py-4 bg-[#25d366] text-white font-black rounded-full shadow-lg">HUBUNGI WHATSAPP</button>
         </div>
     </div>
 
-    <div id="chat-panel" class="royal-panel">
-        <div class="p-6 border-b flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-orange-600 flex items-center justify-center text-white shadow-lg"><i class="fas fa-headset text-xl"></i></div>
-                <div>
-                    <h4 class="font-black text-sm leading-none">VIP SERVICES</h4>
-                    <span class="text-[9px] text-green-500 font-bold uppercase tracking-widest">Online Admin Ratu</span>
-                </div>
-            </div>
-            <i class="fas fa-times text-gray-200" onclick="closeAllPanels()"></i>
-        </div>
-        <div class="flex-1 bg-gray-100 p-8 flex flex-col gap-6">
-            <div class="bg-white p-6 rounded-3xl rounded-tl-none shadow-sm text-xs leading-relaxed border-l-8 border-orange-500 animate__animated animate__fadeInLeft">
-                Halo Ratu! ✨ Tim VIP Services kami siap membantu segala pertanyaan Anda mengenai ukuran, stok, atau status pengiriman. Silakan hubungi kami via WhatsApp!
-            </div>
-        </div>
-        <div class="p-8 bg-white border-t">
-            <button onclick="sendDirectWA('Halo Admin Ratu, saya butuh layanan VIP...')" class="wa-floating-btn shadow-xl shadow-green-100 uppercase text-xs tracking-widest">
-                <i class="fab fa-whatsapp text-3xl"></i> Chat WhatsApp VIP
-            </button>
-        </div>
-    </div>
-
-    <div id="product-modal" class="overlay-dimmer" style="display:none; align-items: flex-end; justify-content: center; z-index: 60000;" onclick="closeAllPanels()">
-        <div class="bg-white w-full max-w-[700px] rounded-t-[50px] overflow-hidden animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
-            <div class="relative">
-                <img id="detail-image" src="" class="w-full h-[500px] object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <button onclick="closeAllPanels()" class="absolute top-8 right-8 bg-white/20 backdrop-blur-xl text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl">&times;</button>
+    <div id="detail-sheet" class="master-overlay" style="display:none; align-items: flex-end; justify-content: center; z-index: 60000;" onclick="closeAll()">
+        <div class="bg-white w-full max-w-[600px] rounded-t-[40px] overflow-hidden animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
+            <div class="relative h-[450px]">
+                <img id="view-img" src="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                <button onclick="closeAll()" class="absolute top-6 right-6 bg-white/20 backdrop-blur-md text-white w-12 h-12 rounded-full flex items-center justify-center text-2xl">&times;</button>
                 <div class="absolute bottom-8 left-8 text-white">
-                    <p id="detail-price-big" class="text-4xl font-black mb-1"></p>
-                    <p class="text-[10px] font-bold uppercase tracking-[4px] opacity-70">Harga Eksklusif</p>
+                    <h2 id="view-name" class="font-black text-2xl mb-2 italic"></h2>
+                    <p id="view-price" class="text-red-500 font-black text-3xl"></p>
                 </div>
             </div>
-            <div class="p-10">
-                <h3 id="detail-name" class="font-black text-2xl text-gray-800 mb-8 tracking-tight"></h3>
-                <div class="bg-gray-50 p-8 rounded-[30px] border-2 border-dashed border-gray-100 mb-10">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase mb-4 tracking-[3px]">Deskripsi Royal</p>
-                    <p id="detail-desc" class="text-sm text-gray-600 leading-relaxed font-medium"></p>
+            <div class="p-8 pb-12">
+                <div class="bg-gray-50 p-6 rounded-3xl border border-gray-100 mb-8">
+                    <span class="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-2 block">Spesifikasi Royal</span>
+                    <p id="view-desc" class="text-xs text-gray-600 leading-relaxed"></p>
                 </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <button onclick="openPanel('chat-panel')" class="border-2 border-orange-600 text-orange-600 font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest">Chat Admin</button>
-                    <button onclick="addToCartProcess()" class="bg-[#ee4d2d] text-white font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest shadow-2xl shadow-orange-200">Beli Produk</button>
-                </div>
+                <button onclick="execAddToCart()" class="w-full py-5 bg-[#ee4d2d] text-white font-black rounded-2xl uppercase tracking-[3px] text-xs shadow-xl">Masukkan Keranjang Ratu</button>
             </div>
         </div>
     </div>
 
-    <div id="checkout-modal" class="overlay-dimmer" style="display:none; align-items: flex-end; justify-content: center; z-index: 70000;" onclick="closeAllPanels()">
-        <div class="bg-white w-full max-w-[700px] p-12 rounded-t-[50px] animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
-            <h3 class="text-3xl font-black mb-12 text-center uppercase tracking-tighter italic">Pengiriman <span class="text-red-600">Ratu</span></h3>
-            <div class="space-y-6">
-                <div class="group">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2 mb-2 block">Nama Penerima</label>
-                    <input type="text" id="chk-nama" placeholder="Masukkan Nama Lengkap" class="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl outline-none focus:border-red-500 font-bold transition">
-                </div>
-                <div class="group">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2 mb-2 block">Alamat Lengkap</label>
-                    <textarea id="chk-alamat" placeholder="Provinsi/Kota/Kecamatan/Nama Jalan" class="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl outline-none h-32 focus:border-red-500 font-bold transition"></textarea>
-                </div>
-                <div class="group">
-                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2 mb-2 block">Metode Bayar</label>
-                    <select id="chk-metode" class="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl font-black outline-none focus:border-red-500">
-                        <option>Transfer Bank BCA (Fast)</option>
-                        <option>E-Wallet (Dana/ShopeePay)</option>
-                        <option>COD (Bayar Saat Sampai)</option>
-                    </select>
-                </div>
+    <div id="checkout-sheet" class="master-overlay" style="display:none; align-items: flex-end; justify-content: center; z-index: 70000;" onclick="closeAll()">
+        <div class="bg-white w-full max-w-[600px] p-10 rounded-t-[40px] animate__animated animate__slideInUp animate__faster" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-black mb-10 text-center uppercase tracking-tighter italic">Formulir Pesanan <span class="text-red-600">Ratu</span></h3>
+            <div class="space-y-4">
+                <input type="text" id="cust-name" placeholder="Nama Lengkap Ratu" class="w-full bg-gray-50 border-2 p-5 rounded-2xl outline-none focus:border-red-500 font-bold transition">
+                <textarea id="cust-address" placeholder="Alamat Pengiriman Lengkap" class="w-full bg-gray-50 border-2 p-5 rounded-2xl outline-none h-28 focus:border-red-500 font-bold transition"></textarea>
+                <select id="cust-pay" class="w-full bg-gray-50 border-2 p-5 rounded-2xl font-black">
+                    <option>BCA Transfer</option>
+                    <option>DANA / ShopeePay</option>
+                    <option>COD (Bayar Ditempat)</option>
+                </select>
             </div>
-            <button onclick="finalSubmitToWA()" class="w-full bg-black text-white font-black py-6 mt-14 rounded-[30px] uppercase text-xs tracking-[6px] shadow-2xl hover:bg-gray-800 transition">Selesaikan Pesanan</button>
+            <button onclick="submitToWA()" class="w-full py-6 bg-black text-white font-black rounded-3xl uppercase mt-10 tracking-[5px] text-[10px] shadow-2xl">Konfirmasi Pesanan</button>
         </div>
     </div>
 
-    <nav class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 flex justify-around py-5 z-[30000] shadow-[0_-10px_40px_rgba(0,0,0,0.08)]">
-        <div class="text-red-600 text-center flex flex-col items-center cursor-pointer">
-            <i class="fas fa-home text-2xl"></i><span class="text-[10px] mt-1 font-black uppercase tracking-tighter">Beranda</span>
-        </div>
-        <div class="text-gray-300 text-center flex flex-col items-center cursor-pointer hover:text-red-500 transition" onclick="toggleReels(true)">
-            <i class="fas fa-play-circle text-2xl"></i><span class="text-[10px] mt-1 font-black uppercase tracking-tighter">Video</span>
-        </div>
-        <div class="text-gray-300 text-center flex flex-col items-center cursor-pointer hover:text-red-500 transition" onclick="openPanel('chat-panel')">
-            <i class="far fa-comment-dots text-2xl"></i><span class="text-[10px] mt-1 font-black uppercase tracking-tighter">Chat</span>
-        </div>
-        <div class="text-gray-300 text-center flex flex-col items-center cursor-pointer hover:text-red-500 transition" onclick="accessAdmin()">
-            <i class="far fa-user-circle text-2xl"></i><span class="text-[10px] mt-1 font-black uppercase tracking-tighter">Admin</span>
-        </div>
-    </nav>
-
-    <audio id="royal-bgm" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
+    <audio id="audio-bgm" src="trtasfiq-sad-piano-instrumental-background-music-279069 (1).mp3" loop></audio>
 
     <script>
-        // --- MASTER DATA & STATE ---
-        let adminNumber = "6285640056650";
-        let cartData = [];
-        let selectedProduct = null;
+        // --- MASTER SYSTEM DATA ---
+        let waNumber = "6285640056650";
+        let cartItems = [];
+        let activeProduct = null;
 
-        // DATABASE PRODUK DENGAN PROTEKSI PATH SPASI
-        const productsDatabase = [
-            { id: 1, name: "Wong Urip Signature - Royal Black Elite 2026", price: 0, label: "Exclusive Item", img: "foto-1 2026-03-19 at 13.40.41.jpeg", desc: "Produk mahakarya dari Ratu Collection yang dikerjakan dengan tangan. Menggunakan kain premium grade A+ yang memberikan kenyamanan maksimal dan aura kemewahan tak tertandingi." },
-            { id: 2, name: "Mba Simbet Elegance - Pearl White Silk", price: 0, label: "Limited Edition", img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg", desc: "Koleksi sutra putih dengan tekstur mutiara. Dirancang khusus untuk acara formal yang membutuhkan tampilan elegan dan berkelas khas Ratu Collection." },
-            { id: 3, name: "Majesty Gold Crown Handbag - International", price: 1850000, label: "Rp 1.850.000", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600", desc: "Tas tangan impor premium dengan aksen mahkota emas. Simbol status dan keanggunan wanita modern yang go internasional." },
-            { id: 4, name: "Royal Diamond Crown Ring - High Quality", price: 3200000, label: "Rp 3.200.000", img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600", desc: "Cincin mahkota bertahtakan berlian imitasi kualitas tertinggi. Berkilau indah di setiap gerakan tangan Anda." }
+        const products = [
+            { id: 1, name: "Wong Urip Signature - Royal Black 2026", price: 0, tag: "Exclusive", img: "foto-1 2026-03-19 at 13.40.41.jpeg", desc: "Produk mahakarya eksklusif Ratu Collection dengan jahitan tangan seniman profesional. Bahan premium internasional." },
+            { id: 2, name: "Mba Simbet Elegance - Pearl White Silk", price: 0, tag: "Premium Edition", img: "WhatsApp Image 2026-03-19 at 13.40.16.jpeg", desc: "Sutra pilihan dengan kilau mutiara alami. Memancarkan aura keanggunan sejati untuk acara spesial Ratu." },
+            { id: 3, name: "Gold Majesty Crown Handbag - International", price: 1850000, tag: "Rp 1.850.000", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600", desc: "Tas tangan mewah dengan aksen mahkota emas. Simbol kemewahan go-internasional." },
+            { id: 4, name: "Royal Diamond Crown Ring - High Quality", price: 3200000, tag: "Rp 3.200.000", img: "https://images.unsplash.com/photo-1605100804763-247f66122bc8?w=600", desc: "Cincin mahkota berlian imitasi kualitas terbaik. Bersinar indah di jemari Ratu." }
         ];
 
-        // --- CORE FUNCTION: UNLOCK STORE (PENYELESAIAN ERROR INTRO) ---
-        function unlockStore() {
-            const shield = document.getElementById('royal-intro-shield');
-            const bgm = document.getElementById('royal-bgm');
+        // --- QUANTUM REBOOT ENGINE (Saran Ratu) ---
+        function forceSystemReboot() {
+            console.log("Rebooting Imperial Engine...");
+            const grid = document.getElementById('grid-engine');
             
-            // Putar Audio
-            bgm.play().catch(() => console.log("Audio Play Blocked"));
-            
-            // Animasi Keluar
-            shield.style.opacity = '0';
-            shield.style.transform = 'scale(1.2)';
-            
+            // 1. Tampilkan Efek Loading
+            grid.innerHTML = `
+                <div class="col-span-2 py-20 text-center animate__animated animate__fadeIn">
+                    <i class="fas fa-sync-alt fa-spin text-4xl text-gold-dark mb-4"></i>
+                    <p class="text-[10px] font-black uppercase tracking-[4px]">Revalidating Quantum Path...</p>
+                </div>
+            `;
+
+            // 2. Jalankan Perbaikan Link & Render Ulang
             setTimeout(() => {
-                shield.remove(); // Hapus total elemen intro
-                document.body.style.overflow = "auto";
-                document.body.style.height = "auto";
-                
-                // FORCE RENDER (Pemicu agar produk pasti muncul)
-                refreshStoreDisplay();
-            }, 600);
+                rebuildProductGrid();
+                alert("✨ Sistem Ratu Collection Berhasil Di-Refresh!");
+            }, 800);
         }
 
-        // --- RENDER ENGINE (PERBAIKAN ERROR PRODUK GAK MUNCUL) ---
-        function refreshStoreDisplay() {
-            const container = document.getElementById('product-grid-container');
-            if (!container) return;
+        // --- SISTEM INISIALISASI ---
+        function igniteEngine() {
+            const intro = document.getElementById('quantum-shield');
+            const bgm = document.getElementById('audio-bgm');
+            
+            // Putar Musik
+            bgm.play().catch(e => console.log("Audio Play Blocked"));
 
-            // Render Produk
-            container.innerHTML = productsDatabase.map(p => {
-                // Fix path spasi untuk gambar lokal
-                const safePath = encodeURI(p.img);
+            // Hapus Shield
+            intro.style.transform = "translateY(-100%)";
+            setTimeout(() => {
+                intro.remove();
+                document.body.style.height = "auto";
+                document.body.style.overflow = "auto";
+                rebuildProductGrid(); // Panggil Render
+            }, 800);
+        }
+
+        // --- RENDER ENGINE (PERBAIKAN ERROR PRODUK TIDAK MUNCUL) ---
+        function rebuildProductGrid() {
+            const grid = document.getElementById('grid-engine');
+            if(!grid) return;
+
+            grid.innerHTML = products.map(p => {
+                // Perbaikan Path Gambar (Spasi ke URL Safe)
+                const safeImg = encodeURI(p.img);
                 
                 return `
-                <div class="royal-card animate__animated animate__fadeInUp" onclick="openProductDetail(${p.id})">
-                    <div class="img-container">
-                        <img src="${safePath}" onerror="this.src='https://via.placeholder.com/400x540?text=Ratu+Collection'">
-                        <div class="absolute top-3 left-3 bg-red-600 text-white text-[8px] font-black px-3 py-1 rounded shadow-lg uppercase tracking-widest">Royal</div>
+                <div class="product-item animate__animated animate__fadeInUp" onclick="viewDetail(${p.id})">
+                    <div class="image-box">
+                        <img src="${safeImg}" onerror="this.src='https://via.placeholder.com/400x533?text=Ratu+Collection'">
+                        <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[7px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Official</div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-[11px] font-bold text-gray-700 h-8 overflow-hidden line-clamp-2 leading-tight">${p.name}</h3>
-                        <p class="text-red-600 font-black text-sm mt-3 tracking-tighter">${p.label}</p>
-                        <div class="flex items-center gap-1 mt-2 opacity-40">
+                        <h3 class="text-[10px] font-black text-gray-800 line-clamp-2 h-8 uppercase italic tracking-tighter">${p.name}</h3>
+                        <p class="text-red-600 font-black text-sm mt-3">${p.tag}</p>
+                        <div class="flex items-center gap-1 mt-2 opacity-30">
                             <i class="fas fa-star text-yellow-400 text-[8px]"></i>
-                            <span class="text-[8px] font-bold">5.0 | 10rb+ Terjual</span>
+                            <span class="text-[8px] font-bold">5.0 | High Quality</span>
                         </div>
                     </div>
                 </div>
@@ -354,144 +284,119 @@
             }).join('');
         }
 
-        // --- MODAL & PANEL ENGINE ---
-        function openProductDetail(id) {
-            selectedProduct = productsDatabase.find(x => x.id === id);
-            if(!selectedProduct) return;
-
-            document.getElementById('detail-image').src = encodeURI(selectedProduct.img);
-            document.getElementById('detail-name').innerText = selectedProduct.name;
-            document.getElementById('detail-price-big').innerText = selectedProduct.label;
-            document.getElementById('detail-desc').innerText = selectedProduct.desc;
+        // --- UI LOGIC ---
+        function viewDetail(id) {
+            activeProduct = products.find(x => x.id === id);
+            document.getElementById('view-img').src = encodeURI(activeProduct.img);
+            document.getElementById('view-name').innerText = activeProduct.name;
+            document.getElementById('view-price').innerText = activeProduct.tag;
+            document.getElementById('view-desc').innerText = activeProduct.desc;
             
-            document.getElementById('product-modal').style.display = 'flex';
-            document.getElementById('overlay-dimmer').style.display = 'block';
+            document.getElementById('detail-sheet').style.display = 'flex';
+            document.getElementById('master-overlay').style.display = 'block';
         }
 
-        function openPanel(id) {
-            document.getElementById(id).classList.add('active');
-            document.getElementById('overlay-dimmer').style.display = 'block';
-            if(id === 'cart-panel') renderCartItems();
+        function openDrawer(id) {
+            document.getElementById(id).classList.add('open');
+            document.getElementById('master-overlay').style.display = 'block';
+            if(id === 'cart-drawer') renderCart();
         }
 
-        function closeAllPanels() {
-            document.querySelectorAll('.royal-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('overlay-dimmer').style.display = 'none';
-            document.getElementById('product-modal').style.display = 'none';
-            document.getElementById('checkout-modal').style.display = 'none';
+        function closeAll() {
+            document.querySelectorAll('.drawer-side').forEach(d => d.classList.remove('open'));
+            document.getElementById('master-overlay').style.display = 'none';
+            document.getElementById('detail-sheet').style.display = 'none';
+            document.getElementById('checkout-sheet').style.display = 'none';
         }
 
-        function toggleReels(show) {
-            const reels = document.getElementById('reels-viewport');
-            const video = document.getElementById('reels-video-element');
-            reels.style.display = show ? 'flex' : 'none';
-            if(show) video.play(); else video.pause();
-        }
-
-        // --- CART LOGIC ---
-        function addToCartProcess() {
-            const exists = cartData.find(i => i.id === selectedProduct.id);
-            if(exists) exists.qty++; else cartData.push({...selectedProduct, qty: 1});
+        // --- CART SYSTEM ---
+        function execAddToCart() {
+            const exists = cartItems.find(i => i.id === activeProduct.id);
+            if(exists) exists.qty++; else cartItems.push({...activeProduct, qty: 1});
             
-            updateCartBadge();
-            closeAllPanels();
-            alert("✨ Berhasil ditambahkan ke Keranjang Ratu!");
+            updateBadge();
+            closeAll();
+            alert("Berhasil ditambahkan ke Keranjang! ✨");
         }
 
-        function updateCartBadge() {
-            const badge = document.getElementById('cart-counter');
-            const total = cartData.reduce((a, b) => a + b.qty, 0);
-            if(total > 0) {
-                badge.innerText = total;
-                badge.classList.remove('hidden');
-            } else badge.classList.add('hidden');
+        function updateBadge() {
+            const b = document.getElementById('badge-count');
+            const total = cartItems.reduce((a, b) => a + b.qty, 0);
+            if(total > 0) { b.innerText = total; b.classList.remove('hidden'); }
+            else b.classList.add('hidden');
         }
 
-        function renderCartItems() {
-            const container = document.getElementById('cart-items-wrapper');
-            const totalEl = document.getElementById('cart-total-price');
-            let totalVal = 0;
+        function renderCart() {
+            const list = document.getElementById('cart-list-render');
+            const totalText = document.getElementById('total-price-text');
+            let sum = 0;
 
-            if(cartData.length === 0) {
-                container.innerHTML = `<div class="text-center mt-32 opacity-20"><i class="fas fa-shopping-basket text-7xl mb-4"></i><p class="font-bold uppercase tracking-widest text-xs">Keranjang Kosong</p></div>`;
-                totalEl.innerText = "Rp 0";
+            if(cartItems.length === 0) {
+                list.innerHTML = `<div class="text-center mt-20 opacity-20"><i class="fas fa-shopping-bag text-7xl mb-4"></i><p class="text-[10px] font-black">KERANJANG KOSONG</p></div>`;
+                totalText.innerText = "Rp 0";
                 return;
             }
 
-            container.innerHTML = cartData.map(item => {
-                totalVal += (item.price * item.qty);
+            list.innerHTML = cartItems.map(i => {
+                sum += (i.price * i.qty);
                 return `
-                <div class="bg-white p-5 rounded-3xl mb-4 flex gap-5 border border-gray-100 shadow-sm transition hover:shadow-md">
-                    <img src="${encodeURI(item.img)}" class="w-20 h-24 object-cover rounded-2xl shadow-sm">
+                <div class="bg-white p-4 rounded-3xl border border-gray-100 flex gap-4 shadow-sm">
+                    <img src="${encodeURI(i.img)}" class="w-16 h-20 object-cover rounded-2xl shadow-md">
                     <div class="flex-1">
-                        <h4 class="text-[11px] font-black uppercase text-gray-400 tracking-tighter line-clamp-1">${item.name}</h4>
-                        <p class="text-red-600 font-black text-sm mt-1">${item.label}</p>
-                        <div class="flex items-center gap-5 mt-4">
-                            <div class="flex items-center border-2 border-gray-100 rounded-full bg-white px-2 py-1 shadow-sm">
-                                <button onclick="updateQty(${item.id}, -1)" class="w-8 h-8 font-black text-lg">-</button>
-                                <span class="px-4 text-xs font-black">${item.qty}</span>
-                                <button onclick="updateQty(${item.id}, 1)" class="w-8 h-8 font-black text-lg">+</button>
+                        <h4 class="text-[9px] font-black uppercase text-gray-400 tracking-tighter">${i.name}</h4>
+                        <p class="text-red-600 font-black text-xs mt-1">${i.tag}</p>
+                        <div class="flex items-center gap-4 mt-3">
+                            <div class="flex items-center bg-gray-50 rounded-full px-2 border">
+                                <button onclick="changeQty(${i.id}, -1)" class="w-8 h-8 font-bold">-</button>
+                                <span class="px-3 text-xs font-bold">${i.qty}</span>
+                                <button onclick="changeQty(${i.id}, 1)" class="w-8 h-8 font-bold">+</button>
                             </div>
-                            <i class="far fa-trash-alt text-gray-200 ml-auto text-lg" onclick="deleteItem(${item.id})"></i>
+                            <i class="far fa-trash-alt text-gray-200 ml-auto" onclick="delItem(${i.id})"></i>
                         </div>
                     </div>
                 </div>
                 `;
             }).join('');
+            totalText.innerText = sum > 0 ? "Rp " + sum.toLocaleString('id-ID') : "Tanya Admin";
+        }
+
+        function changeQty(id, d) {
+            const i = cartItems.find(x => x.id === id); i.qty += d;
+            if(i.qty < 1) delItem(id);
+            renderCart(); updateBadge();
+        }
+
+        function delItem(id) {
+            cartItems = cartItems.filter(x => x.id !== id);
+            renderCart(); updateBadge();
+        }
+
+        // --- CHECKOUT LOGIC ---
+        function openFinalCheckout() {
+            if(cartItems.length === 0) return;
+            closeAll();
+            document.getElementById('checkout-sheet').style.display = 'flex';
+            document.getElementById('master-overlay').style.display = 'block';
+        }
+
+        function submitToWA() {
+            const n = document.getElementById('cust-name').value;
+            const a = document.getElementById('cust-address').value;
+            const p = document.getElementById('cust-pay').value;
+
+            if(!n || !a) return alert("Ratu, mohon isi Nama dan Alamat!");
+
+            const barang = cartItems.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
+            const total = document.getElementById('total-price-text').innerText;
+            const pesan = `Halo Admin Ratu Collection! ✨\n\nSAYA PESAN:\n${barang}\n\n💰 TOTAL: ${total}\n📍 ALAMAT: ${a}\n💳 BAYAR: ${p}\n👤 NAMA: ${n}\n\nTerima kasih Admin! 👑`;
             
-            totalEl.innerText = totalVal > 0 ? "Rp " + totalVal.toLocaleString('id-ID') : "Tanya Admin";
+            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`);
         }
 
-        function updateQty(id, delta) {
-            const item = cartData.find(x => x.id === id);
-            item.qty += delta;
-            if(item.qty < 1) deleteItem(id);
-            renderCartItems();
-            updateCartBadge();
-        }
+        function contactWA(txt) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(txt)}`); }
 
-        function deleteItem(id) {
-            cartData = cartData.filter(x => x.id !== id);
-            renderCartItems();
-            updateCartBadge();
-        }
-
-        // --- CHECKOUT & WA ---
-        function initiateCheckout() {
-            if(cartData.length === 0) return;
-            closeAllPanels();
-            document.getElementById('checkout-modal').style.display = 'flex';
-            document.getElementById('overlay-dimmer').style.display = 'block';
-        }
-
-        function finalSubmitToWA() {
-            const nama = document.getElementById('chk-nama').value;
-            const alamat = document.getElementById('chk-alamat').value;
-            const metode = document.getElementById('chk-metode').value;
-
-            if(!nama || !alamat) return alert("Ratu, mohon lengkapi nama dan alamat ya!");
-
-            const listBarang = cartData.map(i => `- ${i.name} (${i.qty}x)`).join('\n');
-            const totalBayar = document.getElementById('cart-total-price').innerText;
-            
-            const pesan = `Halo Admin Ratu Collection! ✨\n\nSAYA INGIN ORDER:\n${listBarang}\n\n💰 TOTAL: ${totalBayar}\n📍 ALAMAT: ${alamat}\n💳 METODE: ${metode}\n👤 NAMA: ${nama}\n\nMohon bantuannya Admin! 👑`;
-            
-            window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(pesan)}`);
-        }
-
-        function sendDirectWA(t) { window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(t)}`); }
-
-        function accessAdmin() {
-            const pass = prompt("Input Password Admin:");
-            if(pass === "ratu") {
-                const newWA = prompt("Update No WA (Gunakan 628...):", adminNumber);
-                if(newWA) adminNumber = newWA;
-            }
-        }
-
-        // TRIPLE-TRIGGER AGAR PRODUK TIDAK PERNAH GAGAL MUNCUL
-        document.addEventListener('DOMContentLoaded', refreshStoreDisplay);
-        window.addEventListener('load', refreshStoreDisplay);
+        // --- AUTO START ---
+        window.addEventListener('load', rebuildProductGrid);
     </script>
 </body>
 </html>
